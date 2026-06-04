@@ -27,6 +27,10 @@ count_matches() {
 }
 
 repo_slug_from_origin() {
+  if [ -n "${GOOD_REPO_REPO_SLUG:-}" ]; then
+    printf '%s\n' "$GOOD_REPO_REPO_SLUG"
+    return 0
+  fi
   local remote
   remote="$(git config --get remote.origin.url 2>/dev/null || true)"
   if [[ "$remote" =~ github.com[:/]([^/]+)/([^/.]+)(\.git)?$ ]]; then
@@ -114,6 +118,10 @@ PY
 
 github_homepage_url() {
   local slug="$1"
+  if [ -n "${GOOD_REPO_GITHUB_HOMEPAGE+x}" ]; then
+    printf '%s\n' "$GOOD_REPO_GITHUB_HOMEPAGE"
+    return 0
+  fi
   if [ -z "$slug" ]; then
     return 0
   fi
@@ -142,6 +150,17 @@ u = (sys.argv[1] or '').strip()
 while u.endswith('/'):
     u = u[:-1]
 print(u)
+PY
+}
+
+skill_name_from_file() {
+  python3 - "$1" <<'PY'
+from pathlib import Path
+import sys
+for line in Path(sys.argv[1]).read_text(errors='ignore').splitlines():
+    if line.strip().startswith('name:'):
+        print(line.split(':', 1)[1].strip().strip('"\''))
+        break
 PY
 }
 
@@ -193,8 +212,49 @@ if [ "$PACKAGED_SKILL_COUNT" -gt 0 ] || has_file .claude-plugin/marketplace.json
 fi
 if [ "$PACKAGED_SKILL_COUNT" -gt 0 ]; then
   echo "$PASS  Packaged skill files found: $PACKAGED_SKILL_COUNT"
+elif [ "$IS_SKILL_REPO" -eq 1 ]; then
+  echo "$WARN  Skill repo metadata found, but no skills/<name>/SKILL.md packaged skill files were found"
 else
   echo "$PASS  No packaged skill files found (normal for non-skill repos)"
+fi
+
+if has_file skill/SKILL.md; then
+  echo "$WARN  Found skill/SKILL.md; use skills/<skill-name>/SKILL.md so the installable directory matches the skill name"
+fi
+
+if has_dir skills; then
+  while IFS= read -r skill_file; do
+    skill_dir="$(dirname "$skill_file")"
+    skill_dir="$(basename "$skill_dir")"
+    skill_name="$(skill_name_from_file "$skill_file")"
+    if [ -n "$skill_name" ] && [ "$skill_name" != "$skill_dir" ]; then
+      echo "$WARN  Skill directory name ($skill_dir) does not match SKILL.md frontmatter name ($skill_name)"
+    fi
+  done < <(find skills -mindepth 2 -maxdepth 2 -name SKILL.md -type f 2>/dev/null)
+fi
+
+RUNTIME_EVAL_COUNT=0
+if has_dir skills; then
+  RUNTIME_EVAL_COUNT=$(find skills -path '*/evals/*' -type f 2>/dev/null | wc -l | tr -d ' ')
+fi
+if has_dir skill/evals; then
+  RUNTIME_EVAL_COUNT=$((RUNTIME_EVAL_COUNT + $(find skill/evals -type f 2>/dev/null | wc -l | tr -d ' ')))
+fi
+if [ "$RUNTIME_EVAL_COUNT" -gt 0 ]; then
+  echo "$WARN  Evals found inside an installable skill directory; keep evals/ as a repo-only top-level directory"
+fi
+
+if has_file .claude-plugin/marketplace.json; then
+  python3 - <<'PY'
+from pathlib import Path
+import json
+try:
+    data = json.loads(Path('.claude-plugin/marketplace.json').read_text())
+except Exception:
+    raise SystemExit(0)
+if 'plugins' not in data and 'skills' in data:
+    print('⚠  Marketplace metadata uses a flat skills list; prefer a plugins array with ./skills/<skill-name> paths')
+PY
 fi
 
 REFERENCE_COUNT=0

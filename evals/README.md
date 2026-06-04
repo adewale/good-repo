@@ -7,8 +7,11 @@ This strategy follows the useful parts of Anthropic's `skill-creator` workflow: 
 ## Current status
 
 - Static validation runs via `npm run validate`.
+- `evals/run_eval.py validate` now checks behavior eval schema, trigger query schema, supported assertion types, unique IDs, file references, and `skill_name` alignment with `SKILL.md`.
+- `evals/run_fixture_tests.py` now runs fixture-level mechanical tests for homepage drift, homepage false positives, missing license, bad skill layout, and skill name mismatch.
+- CI runs lightweight eval validation and fixture tests on every push/PR.
 - A first smoke eval was run on 2026-06-03; see `docs/eval-results-2026-06-03.md`.
-- The full model-output eval suite has **not** been run yet.
+- The full behavior eval suite was run on 2026-06-04; see `docs/eval-results-2026-06-04.md`.
 - Trigger-rate evals for `evals/trigger-queries.json` have **not** been run yet.
 
 ## What to evaluate
@@ -69,7 +72,19 @@ evals/fixtures/skill-layout-bad/
 └── evals-in-runtime/
 ```
 
-Run `skills/good-repo/scripts/check-repo-readiness.sh` or a future fixture-aware validator and assert exact warnings.
+Run fixture tests with:
+
+```sh
+python3 evals/run_fixture_tests.py
+```
+
+Current fixtures cover:
+
+- homepage drift true positive,
+- dependency/platform docs false positive,
+- missing root `LICENSE`,
+- singular `skill/SKILL.md` with evals inside runtime and flat marketplace metadata,
+- `skills/<directory>/SKILL.md` frontmatter name mismatch.
 
 ### 4. Golden audit evals
 
@@ -117,6 +132,40 @@ Good assertions are discriminating and concrete:
 
 Prefer assertions on decisions and evidence, not vocabulary alone.
 
+## Runner
+
+The repo includes a small offline runner inspired by `skill-creator`:
+
+```sh
+python3 evals/run_eval.py validate
+```
+
+Validate eval schemas and trigger cases. This is the CI-safe path; it does not call a model.
+
+```sh
+python3 evals/run_eval.py grade \
+  --outputs-dir eval-workspace/iteration-2/behavior \
+  --configuration with_skill
+```
+
+Grade saved outputs for one configuration. Expected output paths:
+
+```text
+eval-workspace/iteration-2/behavior/001/with_skill/output.md
+eval-workspace/iteration-2/behavior/001/without_skill/output.md
+```
+
+```sh
+python3 evals/run_eval.py benchmark \
+  --outputs-dir eval-workspace/iteration-2/behavior \
+  --output eval-workspace/iteration-2/benchmark.json \
+  --allow-failures
+```
+
+Compare paired `with_skill` and `without_skill` outputs, aggregate assertion pass rates, and flag non-discriminating cases where both sides pass.
+
+The runner supports deterministic assertions: `content_includes_any`, `content_includes_all`, `content_excludes_any`, `regex_includes`, and `regex_excludes`. Use human review for nuanced judgment that cannot be reduced to these assertions.
+
 ## Skill-creator-inspired run protocol
 
 For a real eval iteration:
@@ -144,7 +193,7 @@ The most important skill-creator lesson: if baseline passes every assertion, the
 
 ## Current gaps
 
-- No automated runner yet for `evals/evals.json`.
-- No fixture repos yet for script-level homepage detection.
-- No baseline-vs-skill comparison harness yet.
+- Fixture repos cover the first script-level checks, but not full score-calibration fixtures yet.
+- No automated model-output generation yet; the runner grades saved outputs but does not call a model/harness.
+- No trigger-rate execution harness yet for `evals/trigger-queries.json`; current validation is schema/coverage only.
 - No score-calibration suite with hand-reviewed expected bands yet.

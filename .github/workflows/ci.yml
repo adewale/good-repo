@@ -20,6 +20,14 @@ jobs:
         run: |
           bash -n skills/good-repo/scripts/check-repo-readiness.sh
           python3 -m py_compile skills/good-repo/scripts/audit-github-owner.py
+          python3 -m py_compile evals/run_eval.py
+          python3 -m py_compile evals/run_fixture_tests.py
+      - name: Validate eval schemas
+        run: |
+          python3 evals/run_eval.py validate
+      - name: Run fixture evals
+        run: |
+          python3 evals/run_fixture_tests.py
       - name: Check internal Markdown links
         run: |
           python3 - <<'PY'

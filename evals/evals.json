@@ -333,10 +333,13 @@
           "type": "content_includes_any",
           "value": [
             "governance theater",
+            "governance/CI theater",
             "proportionate",
+            "right-size",
             "do not",
             "not necessary",
-            "overkill"
+            "overkill",
+            "template-zombie"
           ],
           "description": "Pushes back on excessive process."
         },
@@ -348,7 +351,7 @@
             "license",
             "topics"
           ],
-          "description": "Recommends lightweight basics."
+          "description": "Recommends the lightweight repo basics first."
         },
         {
           "type": "content_includes_any",
@@ -443,6 +446,85 @@
             "runner"
           ],
           "description": "Connects evals to validation/CI."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Do repo quality improvements like README, topics, license, CI, and responsiveness cause a GitHub repo to become popular? Which attributes matter most?",
+      "expected_output": "Should say repo quality can improve discoverability, trust, tryability, and contribution readiness, and these signals correlate with popularity/adoption, but direct causation is hard to prove. Should identify README/docs, license, metadata/topics/homepage, activity/releases, responsiveness, CI/tests, contributor network, and age/ecosystem/social proof as important, while treating stars/forks as noisy outcomes rather than quality itself.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "correlation",
+            "correlate",
+            "associated",
+            "observational",
+            "confounded",
+            "confounders",
+            "reverse causation"
+          ],
+          "description": "Avoids overclaiming causation from observational popularity signals."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "does not guarantee",
+            "doesn't guarantee",
+            "not guarantee",
+            "correlation not causation",
+            "cannot prove causation",
+            "not direct cause",
+            "not direct causes",
+            "direct causes of stars",
+            "not star magic",
+            "necessary but insufficient"
+          ],
+          "description": "States that quality changes do not guarantee popularity."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "README",
+            "documentation",
+            "docs"
+          ],
+          "description": "Identifies README or documentation quality as an important signal."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "license",
+            "topics",
+            "homepage",
+            "description",
+            "metadata"
+          ],
+          "description": "Identifies metadata, license, or discoverability attributes."
+        },
+        {
+          "type": "regex_includes",
+          "value": "\\b(stars|forks|watchers|stargazers)\\b[\\s\\S]{0,220}\\b(noisy|outcome|outcomes|social proof|proxy|proxies|not star magic|direct causes?|direct drivers?)\\b|\\b(noisy|outcome|outcomes|social proof|proxy|proxies|not star magic|direct causes?|direct drivers?)\\b[\\s\\S]{0,220}\\b(stars|forks|watchers|stargazers)\\b",
+          "description": "Treats popularity metrics as noisy outcome/social-proof signals."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "age",
+            "ecosystem",
+            "language",
+            "domain",
+            "owner",
+            "network effects"
+          ],
+          "description": "Names major confounders when comparing repo popularity."
+        },
+        {
+          "type": "regex_excludes",
+          "value": "\\bwill cause (stars|popularity)\\b|(?<!not )(?<!does not )(?<!do not )(?<!doesn't )(?<!cannot )\\bguarantee (stars|popularity)\\b",
+          "description": "Does not promise deterministic star or popularity gains."
         }
       ],
       "files": []

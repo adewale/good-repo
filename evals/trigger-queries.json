@@ -45,6 +45,12 @@
       "reason": "README plus repo-level launch gaps; pair with good-readme."
     },
     {
+      "id": "pos-popularity-adoption",
+      "prompt": "Does improving README, topics, license, and CI make a GitHub repo more popular?",
+      "should_trigger": true,
+      "reason": "Repo popularity/adoption impact question tied to repository quality signals."
+    },
+    {
       "id": "neg-readme-only",
       "prompt": "Rewrite this README introduction to be clearer and more concise.",
       "should_trigger": false,

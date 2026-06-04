@@ -61,6 +61,7 @@ good-repo owner-audit adewale
 - **GitHub-official baseline** — README, Community Profile files, license, contribution guidelines, issue/PR templates, security policy, CI/workflows, and large-file hygiene.
 - **Trust signals** — roadmap, changelog, maintenance status, contribution guidance, security policy, code owners.
 - **Automation** — CI, release workflow, dependency updates, docs/examples validation.
+- **Popularity/adoption context** — stars, forks, activity, contributor network, and quality signals without confusing popularity for quality.
 
 ## Example audit output
 
@@ -92,12 +93,17 @@ good-repo owner-audit adewale
 | `skills/good-repo/scripts/audit-github-owner.py` | Owner/profile-wide GitHub audit script |
 | `evals/evals.json` | Expected skill behaviors and regression cases |
 | `evals/trigger-queries.json` | Trigger and near-miss cases for skill activation |
+| `evals/run_eval.py` | Skill-creator-inspired eval schema validator, output grader, and benchmark generator |
+| `evals/run_fixture_tests.py` | Fixture-level tests for mechanical repo readiness checks |
+| `evals/fixtures/` | Tiny repos for homepage, license, and skill-layout regression checks |
 | `evals/README.md` | Eval strategy for improving the skill |
 | `docs/eval-results-2026-06-03.md` | First with-skill vs baseline smoke eval results |
+| `docs/eval-results-2026-06-04.md` | Full behavior eval suite results with with-skill vs baseline comparison |
 | `skills/good-repo/references/hallmark-exemplar.md` | What makes Hallmark an exemplary productized skill repo |
 | `skills/good-repo/references/good-pr-exemplar.md` | What makes good-pr an exemplary small operational skill repo |
 | `skills/good-repo/references/repo-anatomy.md` | Repo structure patterns by project type |
 | `skills/good-repo/references/github-official-baseline.md` | GitHub's official docs baseline for healthy/discoverable repos |
+| `skills/good-repo/references/popularity-signals.md` | Research-backed guidance on repo quality, popularity, stars, and adoption |
 | `skills/good-repo/references/skill-repo-best-practices.md` | Agent Skill folder structure, packaging, eval, and marketplace guidance |
 | `skills/good-repo/references/quality-checklist.md` | 100-point GitHub effectiveness rubric |
 | `skills/good-repo/references/github-settings.md` | GitHub metadata, settings, and automation checklist |
@@ -105,7 +111,9 @@ good-repo owner-audit adewale
 | `docs/recipes.md` | Copy-paste prompts for audits, launch prep, and cleanup |
 | `docs/sample-audits.md` | Scores and recommendations for a mixed GitHub sample |
 | `docs/adewale-repos-assessment.md` | Owner-wide audit for `github.com/adewale` |
-| `docs/lessons-learned.md` | Lessons from the owner-wide audit and future assessment axes |
+| `docs/multi-account-signal-assessment.md` | Cross-account audit of public repo portfolios and missed quality signals |
+| `docs/lessons-learned.md` | Lessons from owner-wide and cross-account audits |
+| `docs/repo-quality-popularity.md` | Research brief on whether repo quality affects popularity/adoption |
 | `CONTRIBUTING.md` | Lightweight contribution guidance |
 | `.claude-plugin/marketplace.json` | Claude plugin / skills CLI metadata |
 | `.github/PULL_REQUEST_TEMPLATE.md` | Minimal PR checklist |

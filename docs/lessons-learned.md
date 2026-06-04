@@ -39,6 +39,31 @@ GitHub's docs do not publish a single "good repo" score. The closest official ba
 
 **Lesson:** `good-repo` should distinguish GitHub-official findings from its own adoption/product heuristics. Official docs justify metadata, license, contribution, security, CI, and size checks; `good-repo` adds class-specific proof, evals, homepage drift detection, owner/profile cleanup, and proportional governance judgment.
 
+### 0b. Repo quality can affect adoption, but popularity is confounded
+
+Empirical GitHub research supports correlations between visible quality/social signals and popularity or contribution adoption, especially README/documentation richness, activity, contributor signals, and project/social context. But direct causal evidence is limited, and stars/forks are heavily confounded by age, ecosystem size, owner reputation, social media, and domain demand.
+
+**Lesson:** `good-repo` should score quality separately from popularity. Stars, forks, and watchers are lagging outcome/social-proof signals, not quality criteria. Quality recommendations should be framed as improving discoverability, trust, tryability, and contribution readiness—not as guaranteed star growth. Details live in `docs/repo-quality-popularity.md` and `skills/good-repo/references/popularity-signals.md`.
+
+### 0c. Cross-account audits exposed missing portfolio and context signals
+
+A follow-up scan of `paulkinlan`, `jakearchibald`, `pbakaus`, `chrischabot`, `timothyjordan`, `fayazara`, and `yusukebe` showed that file-based repo hygiene is not enough for experienced public GitHub profiles. Details are in `docs/multi-account-signal-assessment.md`.
+
+New signals to add or weight better:
+
+- profile README and pinned repositories as the owner's curated portfolio;
+- pinned external/org repos, especially for maintainers whose major work lives outside their personal namespace;
+- educational/demo/artifact classification for article demos, standards experiments, bug repros, and historical references;
+- blog/article/talk/spec/upstream-issue provenance links;
+- package/download/dependent/adoption signals beyond stars;
+- issue/PR responsiveness rather than open issue count alone;
+- homepage health and canonicalization, not just presence;
+- status/successor links for archived or legacy repos;
+- portfolio signal-to-noise for accounts with hundreds of experiments;
+- caution around non-English, older, or ecosystem-specific documentation conventions.
+
+**Lesson:** `good-repo` should not confuse "missing modern OSS hygiene" with "low value." Some high-impact repos are historical demos, educational artifacts, or externally promoted tools. Score current repo effectiveness separately from historical impact, portfolio curation, and ecosystem centrality.
+
 ### 1. README presence is not the bottleneck
 
 Every public repo had a README or README-like root file. The problem is not "no README." The problem is that many READMEs do not fully answer:
@@ -352,7 +377,7 @@ Evals should improve the skill by locking in those judgments.
 - Keep a holdout set for score calibration so the rubric does not overfit to `adewale` repos.
 - When a real audit reveals a miss, add the failing eval first, then change the smallest rule or script.
 
-The current eval plan is documented in `evals/README.md`. The next useful engineering step is a small eval runner that executes `evals/evals.json`, records outputs, and compares with/without the skill.
+The current eval plan is documented in `evals/README.md`. `evals/run_eval.py` now validates eval schemas, grades saved model outputs, and generates with-skill vs without-skill benchmark JSON. It deliberately does not call a model in CI; CI runs lightweight schema/assertion validation while real eval iterations save outputs under `eval-workspace/` and grade them offline.
 
 ### 2026-06-03 smoke eval
 
@@ -365,6 +390,20 @@ Findings:
 - Agent Skill layout was discriminating: with-skill recommended `skills/repo-auditor/SKILL.md`, evals outside runtime, and the `plugins` marketplace format; baseline missed the `skills/` convention and marketplace shape.
 
 Lesson: evals should be split into **regression guards** and **skill-value discriminators**. A case where baseline passes is not useless, but it should not be counted as evidence that the skill adds value. The highest-yield eval area for `good-repo` is subtle ecosystem-specific judgment: skill packaging, owner/profile hygiene, homepage candidate precision, license detection consistency, and proportional governance.
+
+### 2026-06-04 full behavior eval
+
+The full `evals/evals.json` behavior suite was run with paired `with_skill` and `without_skill` outputs. Results are recorded in `docs/eval-results-2026-06-04.md`.
+
+Results:
+
+- `with_skill`: 44/44 assertions passed across 11 evals.
+- `without_skill`: 39/44 assertions passed.
+- Skill lift: +10.93 percentage points mean eval pass rate.
+
+Baseline failures concentrated in three useful discriminator areas: Agent Skill layout, homepage false-positive avoidance, and popularity/adoption causality caveats. Many other evals passed on both sides and should remain regression guards, but future eval work needs harder cases.
+
+Fixture-level evals were also added for mechanical checks: homepage drift, third-party docs false positives, missing license, bad skill layout, flat marketplace metadata, evals inside runtime skill, and skill directory/frontmatter mismatch.
 
 ## Trigger lessons
 

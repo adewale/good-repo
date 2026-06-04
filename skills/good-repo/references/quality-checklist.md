@@ -27,7 +27,7 @@ The 100-point score is a structured way to inspect ten success features:
 9. Discoverability.
 10. Focus, scope, and positioning.
 
-A repo can score well before it has many stars. Stars are lagging indicators; these features are leading indicators.
+A repo can score well before it has many stars. Stars are lagging indicators; these features are leading indicators. Use [`popularity-signals.md`](popularity-signals.md) when interpreting stars, forks, watchers, adoption, or growth claims.
 
 ## GitHub-official baseline
 
@@ -38,13 +38,16 @@ GitHub's own docs do not define a single repo score, but they do define a baseli
 Use these when the basic score is not enough:
 
 - **Repository intent/lifecycle** — active product, experiment, fork/reference, historical artifact, template, maintenance mode.
-- **Owner/profile hygiene** — stale forks, duplicate repos, pinning candidates, archive candidates, naming consistency.
+- **Owner/profile hygiene** — profile README, pinned repos, pinned external/org repos, stale forks, duplicate repos, pinning candidates, archive candidates, naming consistency.
+- **Portfolio signal-to-noise** — ratio of maintained projects to experiments, status notes on old repos, whether the owner's best/current work is easy to find.
 - **License consistency** — GitHub detected license, root `LICENSE`, README, manifest, and asset licenses agree.
-- **Deployment health** — live URL returns, HTTPS works, title/OG card exists, demo matches current README.
+- **Deployment health** — live URL returns, HTTPS works, title/OG card exists, demo matches current README, sample/demo URLs are not mistaken for canonical homepages.
+- **Provenance/context** — links to canonical article, talk, spec issue, upstream bug, successor repo, or historical status when the repo is a demo/tutorial/repro/artifact.
 - **Security/privacy posture** — secrets risk, `.env.example`, security policy, dependency vulnerabilities, data/model provenance.
-- **Supply-chain/package publication** — package exists, install command works, exports/bin match README, provenance/signing when relevant.
+- **Supply-chain/package publication** — package exists, install command works, exports/bin match README, downloads/dependents where available, provenance/signing when relevant.
 - **Test quality** — tests/evals prove behavior, not just existence; regression guards fail before the fix.
 - **Accessibility/UX proof** — screenshots/states, keyboard/mobile/browser support, responsive behavior, unsupported platforms.
+- **Contribution responsiveness** — time to first maintainer response, PR review latency, stale issue ratio, close/merge rate, and whether trackers redirect elsewhere.
 - **Maintenance burden** — issues/discussions/bots/CI are sustainable for the maintainer.
 - **Evidence freshness** — screenshots, commands, versions, generated assets, releases, and docs are current.
 

@@ -5,9 +5,10 @@ description: >
   maintainability, and contribution readiness. Use when the user asks to assess
   repo quality, prepare a GitHub launch, improve repo structure or metadata,
   configure GitHub topics/homepage/issues/wiki/license/CI, compare against
-  exemplary repos, run an owner/org-wide repo audit, detect README/package/GitHub
-  drift, fix homepage URL/license/topics gaps, or review Agent Skill repo
-  packaging/evals. Do not trigger for README-only writing when good-readme is
+  exemplary repos, run an owner/org-wide repo audit, analyze repo popularity or
+  adoption signals, detect README/package/GitHub drift, fix homepage
+  URL/license/topics gaps, or review Agent Skill repo packaging/evals. Do not
+  trigger for README-only writing when good-readme is
   the better specialist, except to assess repo-level gaps around the README.
 license: MIT
 references:
@@ -15,6 +16,7 @@ references:
   - references/good-pr-exemplar.md
   - references/repo-anatomy.md
   - references/github-official-baseline.md
+  - references/popularity-signals.md
   - references/skill-repo-best-practices.md
   - references/quality-checklist.md
   - references/github-settings.md
@@ -51,6 +53,8 @@ A repo's quality is not measured by stars first. Stars are an outcome. Audit the
 
 When auditing, always include GitHub's own baseline surfaces: README, Community Profile files, description, homepage, topics, license, contribution guidance, security policy when relevant, CI/workflows, and large-file/repo-size risks. Load [`references/github-official-baseline.md`](references/github-official-baseline.md) when the user asks what GitHub itself recommends or when a finding should be grounded in official GitHub docs.
 
+When the user asks about repo popularity, stars, forks, growth, or adoption impact, load [`references/popularity-signals.md`](references/popularity-signals.md). Treat stars/forks/watchers as noisy outcomes, not intrinsic quality. State correlations carefully and avoid claiming that one repo hygiene change will cause popularity.
+
 Always include the **homepage URL configuration check**: if the README, manifest, or docs expose a likely demo/docs/homepage URL, verify GitHub's repository `homepageUrl` is set to that URL. If it is empty or points elsewhere, flag it as a discoverability/configuration issue.
 
 The reference exemplars are:
@@ -84,7 +88,7 @@ If the user asks generally to "make this repo better," run the default audit fir
 
 Use `good-repo` when the user asks about any of these:
 
-- **Repo quality or success** — "is this repo good?", "make this repo exemplary", "why isn't this repo getting adopted?", "repo effectiveness", "launch-ready".
+- **Repo quality, success, or popularity** — "is this repo good?", "make this repo exemplary", "why isn't this repo getting adopted?", "will repo quality affect stars?", "repo effectiveness", "launch-ready".
 - **GitHub launch/configuration** — topics, description, homepage URL, social preview, issues/discussions/wiki, license detection, branch protection, releases, templates.
 - **Repo audits** — current repo, public GitHub URL, OSS project, owner/org-wide assessment, random repo sample, score/recommendation table.
 - **Metadata drift** — README vs package vs GitHub mismatch; live/demo/docs URL not configured as GitHub homepage; README license vs missing root `LICENSE`.

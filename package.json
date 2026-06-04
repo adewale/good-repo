@@ -27,7 +27,9 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "validate": "python3 -m json.tool package.json >/dev/null && python3 -m json.tool evals/evals.json >/dev/null && python3 -m json.tool evals/trigger-queries.json >/dev/null && python3 -m json.tool .claude-plugin/marketplace.json >/dev/null && bash -n skills/good-repo/scripts/check-repo-readiness.sh && python3 -m py_compile skills/good-repo/scripts/audit-github-owner.py"
+    "eval:fixtures": "python3 evals/run_fixture_tests.py",
+    "eval:validate": "python3 evals/run_eval.py validate",
+    "validate": "python3 -m json.tool package.json >/dev/null && python3 -m json.tool evals/evals.json >/dev/null && python3 -m json.tool evals/trigger-queries.json >/dev/null && python3 -m json.tool .claude-plugin/marketplace.json >/dev/null && bash -n skills/good-repo/scripts/check-repo-readiness.sh && python3 -m py_compile skills/good-repo/scripts/audit-github-owner.py && python3 -m py_compile evals/run_eval.py && python3 -m py_compile evals/run_fixture_tests.py && npm run eval:validate && npm run eval:fixtures"
   },
   "skill": {
     "entry": "skills/good-repo/SKILL.md",
