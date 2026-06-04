@@ -31,7 +31,7 @@ A repo can score well before it has many stars. Stars are lagging indicators; th
 
 ## GitHub-official baseline
 
-GitHub's own docs do not define a single repo score, but they do define a baseline through README guidance, Community Profile files, repository metadata, contributor templates, security policy, CI/workflows, and large-file limits. Use [`github-official-baseline.md`](github-official-baseline.md) when a recommendation should be tied to official GitHub documentation.
+GitHub's own docs do not define a single repo score, but they do define a baseline through README guidance, Community Profile files, repository metadata, contributor templates, security policy, CI/workflows, and large-file limits. Use [`github-official-baseline.md`](github-official-baseline.md) when a recommendation should be tied to official GitHub documentation. Use [`community-profile-repolinter.md`](community-profile-repolinter.md) when reporting GitHub's official Community Profile health percentage or translating Repolinter-style policy findings.
 
 ## Additional diagnostic axes
 

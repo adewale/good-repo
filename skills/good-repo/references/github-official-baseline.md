@@ -31,7 +31,11 @@ GitHub's Community Profile docs also route maintainers toward issue/PR templates
 
 Source: [About community profiles for public repositories](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/about-community-profiles-for-public-repositories)
 
-`good-repo` implication: for public OSS projects that seek contributors, check Community Profile files explicitly. For tiny experiments, archived repos, private/internal repos, or projects not accepting contributors, apply these proportionately instead of recommending governance theater.
+The Community Profile is also exposed through GitHub's REST API, including `health_percentage` and detected community files.
+
+Source: [Get community profile metrics](https://docs.github.com/en/rest/metrics/community?apiVersion=2022-11-28#get-community-profile-metrics)
+
+`good-repo` implication: for public OSS projects that seek contributors, check Community Profile files explicitly and report the official health percentage when available. For tiny experiments, archived repos, private/internal repos, or projects not accepting contributors, apply these proportionately instead of recommending governance theater. Use [`community-profile-repolinter.md`](community-profile-repolinter.md) for API usage and Repolinter comparison.
 
 ## 3. Description, homepage, and topics: official discoverability surfaces
 

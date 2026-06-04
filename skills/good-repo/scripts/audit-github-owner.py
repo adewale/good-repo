@@ -3,8 +3,8 @@
 
 This is a lightweight triage tool for good-repo. It uses GitHub metadata,
 root contents, README text, and package metadata to produce a heuristic
-repo-effectiveness score plus recommendations. It is not a substitute for a
-manual audit, but it is useful for owner/profile-wide cleanup passes.
+repo-effectiveness score, GitHub Community Profile health, plus recommendations.
+It is not a substitute for a manual audit, but it is useful for owner/profile-wide cleanup passes.
 """
 
 from __future__ import annotations
@@ -50,6 +50,8 @@ class RepoAudit:
     archived: bool
     stars: int
     updated_at: str
+    community_health: int | None
+    community_missing: list[str]
     homepage_status: str
     top_recommendations: list[str]
     strengths: list[str]
@@ -81,6 +83,29 @@ def get_root_names(owner: str, repo: str) -> set[str]:
     except Exception:
         return set()
     return {item.get("name", "") for item in data if item.get("name")}
+
+
+def get_community_profile(owner: str, repo: str) -> dict[str, Any]:
+    try:
+        data = gh_api(f"repos/{owner}/{repo}/community/profile")
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def community_missing(profile: dict[str, Any]) -> list[str]:
+    files = profile.get("files") if isinstance(profile, dict) else None
+    if not isinstance(files, dict):
+        return []
+    labels = {
+        "readme": "README",
+        "license": "LICENSE",
+        "contributing": "CONTRIBUTING",
+        "code_of_conduct": "CODE_OF_CONDUCT",
+        "issue_template": "issue template",
+        "pull_request_template": "PR template",
+    }
+    return [label for key, label in labels.items() if files.get(key) is None]
 
 
 def get_readme(owner: str, repo: str) -> str:
@@ -207,6 +232,10 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
     name = meta["name"]
     root = get_root_names(owner, name)
     readme = get_readme(owner, name)
+    community = get_community_profile(owner, name)
+    community_health_raw = community.get("health_percentage")
+    community_health = int(community_health_raw) if isinstance(community_health_raw, (int, float)) else None
+    community_missing_files = community_missing(community)
     pkg_home = package_homepage(owner, name) if "package.json" in root else ""
     cand_home = candidate_homepage(readme, pkg_home, owner, name)
     gh_home = meta.get("homepage") or ""
@@ -380,6 +409,8 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
         archived=bool(meta.get("archived")),
         stars=int(meta.get("stargazers_count") or 0),
         updated_at=meta.get("updated_at", ""),
+        community_health=community_health,
+        community_missing=community_missing_files,
         homepage_status=homepage_status,
         top_recommendations=recs[:3],
         strengths=strengths[:3],
@@ -401,16 +432,20 @@ def markdown(owner: str, audits: list[RepoAudit]) -> str:
     lines.append(f"- Public repos assessed: **{public_count}**")
     lines.append(f"- Forks/reference repos: **{forks}**")
     lines.append(f"- Homepage URL issues detected: **{len(homepage_issues)}**")
+    known_community = [a.community_health for a in audits if a.community_health is not None]
+    if known_community:
+        lines.append(f"- Median Community Profile health: **{sorted(known_community)[len(known_community)//2]}%**")
     lines.append(f"- Median-ish score: **{sorted(a.score for a in audits)[len(audits)//2]}**")
     lines.append("")
     lines.append("## Repo table")
     lines.append("")
-    lines.append("| Repo | Class | Score | Rating | Homepage | Top recommendations |")
-    lines.append("| --- | --- | ---: | --- | --- | --- |")
+    lines.append("| Repo | Class | Score | Community | Rating | Homepage | Top recommendations |")
+    lines.append("| --- | --- | ---: | ---: | --- | --- | --- |")
     for a in sorted(audits, key=lambda x: (x.fork, x.score, x.name.lower())):
         recs = "; ".join(a.top_recommendations).replace("|", "/")
         home = a.homepage_status.replace("|", "/")
-        lines.append(f"| [`{a.name}`]({a.html_url}) | {a.repo_class} | {a.score} | {a.rating} | {home} | {recs} |")
+        community = f"{a.community_health}%" if a.community_health is not None else "unknown"
+        lines.append(f"| [`{a.name}`]({a.html_url}) | {a.repo_class} | {a.score} | {community} | {a.rating} | {home} | {recs} |")
     if homepage_issues:
         lines.append("")
         lines.append("## Homepage URL issues")

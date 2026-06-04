@@ -15,6 +15,7 @@ All notable changes to `good-repo` will be documented here.
 - Added GitHub-official baseline reference covering README guidance, Community Profile files, metadata/topics/homepage, license, contribution templates, security policy, CI/workflows, and large-file hygiene.
 - Added repo quality vs popularity/adoption research brief and runtime reference; stars/forks are now framed as noisy outcomes rather than intrinsic quality.
 - Added multi-account signal assessment for high-activity GitHub profiles; expanded checklist axes for profile README, pinned/external repos, demo/tutorial/repro artifacts, provenance links, package adoption, responsiveness, homepage health, and portfolio signal-to-noise.
+- Added focused GitHub Community Profile and Repolinter guidance; owner audits now include GitHub Community Profile health percentages when available.
 - Added eval strategy documentation and expanded behavior eval cases for skill layout, homepage precision, forks, governance, license consistency, and skill-eval gaps.
 - Added trigger policy to `SKILL.md` plus `evals/trigger-queries.json` for positive and near-negative activation cases.
 - Ran first paired with-skill vs baseline smoke eval and documented results in `docs/eval-results-2026-06-03.md`.

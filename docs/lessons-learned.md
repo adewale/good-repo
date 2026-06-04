@@ -37,7 +37,7 @@ GitHub's docs do not publish a single "good repo" score. The closest official ba
 - GitHub Actions CI/workflows for automated build/test feedback.
 - Large-file and repository-size hygiene.
 
-**Lesson:** `good-repo` should distinguish GitHub-official findings from its own adoption/product heuristics. Official docs justify metadata, license, contribution, security, CI, and size checks; `good-repo` adds class-specific proof, evals, homepage drift detection, owner/profile cleanup, and proportional governance judgment.
+**Lesson:** `good-repo` should distinguish GitHub-official findings from its own adoption/product heuristics. Official docs justify metadata, license, contribution, security, CI, and size checks; `good-repo` adds class-specific proof, evals, homepage drift detection, owner/profile cleanup, and proportional governance judgment. The GitHub Community Profile API is now treated as a first-class official baseline signal, while Repolinter is treated as optional policy-as-code evidence rather than a required dependency.
 
 ### 0b. Repo quality can affect adoption, but popularity is confounded
 

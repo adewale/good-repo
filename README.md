@@ -58,7 +58,8 @@ good-repo owner-audit adewale
 - **Adoption path** — prerequisites, quick start, package metadata, release/download path, local dev setup.
 - **Repository architecture** — docs split, examples, skill/package entry points, references, scripts, evals, generated assets, fixtures.
 - **GitHub metadata** — description, homepage, topics, social preview, license, issue/discussion/wiki settings.
-- **GitHub-official baseline** — README, Community Profile files, license, contribution guidelines, issue/PR templates, security policy, CI/workflows, and large-file hygiene.
+- **GitHub-official baseline** — README, Community Profile health/files, license, contribution guidelines, issue/PR templates, security policy, CI/workflows, and large-file hygiene.
+- **Policy-check context** — Repolinter-style findings translated through repo class and maturity instead of copied blindly.
 - **Trust signals** — roadmap, changelog, maintenance status, contribution guidance, security policy, code owners.
 - **Automation** — CI, release workflow, dependency updates, docs/examples validation.
 - **Popularity/adoption context** — stars, forks, activity, contributor network, and quality signals without confusing popularity for quality.
@@ -103,6 +104,7 @@ good-repo owner-audit adewale
 | `skills/good-repo/references/good-pr-exemplar.md` | What makes good-pr an exemplary small operational skill repo |
 | `skills/good-repo/references/repo-anatomy.md` | Repo structure patterns by project type |
 | `skills/good-repo/references/github-official-baseline.md` | GitHub's official docs baseline for healthy/discoverable repos |
+| `skills/good-repo/references/community-profile-repolinter.md` | GitHub Community Profile and Repolinter interpretation guidance |
 | `skills/good-repo/references/popularity-signals.md` | Research-backed guidance on repo quality, popularity, stars, and adoption |
 | `skills/good-repo/references/skill-repo-best-practices.md` | Agent Skill folder structure, packaging, eval, and marketplace guidance |
 | `skills/good-repo/references/quality-checklist.md` | 100-point GitHub effectiveness rubric |
@@ -112,6 +114,7 @@ good-repo owner-audit adewale
 | `docs/sample-audits.md` | Scores and recommendations for a mixed GitHub sample |
 | `docs/adewale-repos-assessment.md` | Owner-wide audit for `github.com/adewale` |
 | `docs/adewale-recent-improvement-opportunities.md` | Recently modified `adewale` repos ranked by improvement opportunity |
+| `docs/community-profile-repolinter-focus.md` | Focused comparison of GitHub Community Profile and Repolinter |
 | `docs/multi-account-signal-assessment.md` | Cross-account audit of public repo portfolios and missed quality signals |
 | `docs/lessons-learned.md` | Lessons from owner-wide and cross-account audits |
 | `docs/repo-quality-popularity.md` | Research brief on whether repo quality affects popularity/adoption |

@@ -16,6 +16,7 @@ references:
   - references/good-pr-exemplar.md
   - references/repo-anatomy.md
   - references/github-official-baseline.md
+  - references/community-profile-repolinter.md
   - references/popularity-signals.md
   - references/skill-repo-best-practices.md
   - references/quality-checklist.md
@@ -51,7 +52,7 @@ A repo's quality is not measured by stars first. Stars are an outcome. Audit the
 9. **Discoverability** — GitHub description, homepage URL, topics, social preview, package keywords.
 10. **Focus and positioning** — clear scope, non-goals, audience, and when not to use it.
 
-When auditing, always include GitHub's own baseline surfaces: README, Community Profile files, description, homepage, topics, license, contribution guidance, security policy when relevant, CI/workflows, and large-file/repo-size risks. Load [`references/github-official-baseline.md`](references/github-official-baseline.md) when the user asks what GitHub itself recommends or when a finding should be grounded in official GitHub docs.
+When auditing, always include GitHub's own baseline surfaces: README, Community Profile files, description, homepage, topics, license, contribution guidance, security policy when relevant, CI/workflows, and large-file/repo-size risks. Load [`references/github-official-baseline.md`](references/github-official-baseline.md) when the user asks what GitHub itself recommends or when a finding should be grounded in official GitHub docs. Load [`references/community-profile-repolinter.md`](references/community-profile-repolinter.md) when using GitHub Community Profile, GitHub's community health percentage/API, or Repolinter-style policy checks.
 
 When the user asks about repo popularity, stars, forks, growth, or adoption impact, load [`references/popularity-signals.md`](references/popularity-signals.md). Treat stars/forks/watchers as noisy outcomes, not intrinsic quality. State correlations carefully and avoid claiming that one repo hygiene change will cause popularity.
 
@@ -89,7 +90,7 @@ If the user asks generally to "make this repo better," run the default audit fir
 Use `good-repo` when the user asks about any of these:
 
 - **Repo quality, success, or popularity** — "is this repo good?", "make this repo exemplary", "why isn't this repo getting adopted?", "will repo quality affect stars?", "repo effectiveness", "launch-ready".
-- **GitHub launch/configuration** — topics, description, homepage URL, social preview, issues/discussions/wiki, license detection, branch protection, releases, templates.
+- **GitHub launch/configuration** — topics, description, homepage URL, social preview, Community Profile health, issues/discussions/wiki, license detection, branch protection, releases, templates.
 - **Repo audits** — current repo, public GitHub URL, OSS project, owner/org-wide assessment, random repo sample, score/recommendation table.
 - **Metadata drift** — README vs package vs GitHub mismatch; live/demo/docs URL not configured as GitHub homepage; README license vs missing root `LICENSE`.
 - **Adoption/trust gaps** — no quick start, no proof, no examples, stale screenshots, missing CI, missing changelog, missing contribution path.

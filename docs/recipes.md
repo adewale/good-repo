@@ -116,7 +116,7 @@ Use when the repo has no launch surface yet.
 ## 10 · Owner-wide audit
 
 ```text
-Assess every public repo under github.com/<owner>. Classify each repo, score it, detect homepage URL drift, and summarize profile-wide cleanup themes.
+Assess every public repo under github.com/<owner>. Classify each repo, score it, detect homepage URL drift, include GitHub Community Profile health, and summarize profile-wide cleanup themes.
 ```
 
 Useful command:
@@ -124,3 +124,23 @@ Useful command:
 ```sh
 python3 skills/good-repo/scripts/audit-github-owner.py <owner> --output docs/<owner>-repos-assessment.md
 ```
+
+## 11 · GitHub Community Profile + Repolinter focus
+
+```text
+Audit this repo using GitHub Community Profile as the official baseline and Repolinter as an optional policy-check comparison. Tell me which failures are real priorities for this repo class and which are governance theater.
+```
+
+Useful commands:
+
+```sh
+gh api repos/OWNER/REPO/community/profile
+npx -y repolinter@0.12.0 lint . --format json
+```
+
+Interpretation rules:
+
+- Community Profile is official but mostly file-presence based.
+- Repolinter is useful for policy-as-code, but upstream is archived and the default ruleset is intentionally broad.
+- Do not treat missing `CODE_OF_CONDUCT`, `SECURITY.md`, or `SUPPORT` as blockers for every tiny/personal repo.
+- For agent skills, `evals/` can be stronger proof than a generic `test/` directory.
