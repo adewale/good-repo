@@ -111,6 +111,7 @@ good-repo owner-audit adewale
 | `docs/recipes.md` | Copy-paste prompts for audits, launch prep, and cleanup |
 | `docs/sample-audits.md` | Scores and recommendations for a mixed GitHub sample |
 | `docs/adewale-repos-assessment.md` | Owner-wide audit for `github.com/adewale` |
+| `docs/adewale-recent-improvement-opportunities.md` | Recently modified `adewale` repos ranked by improvement opportunity |
 | `docs/multi-account-signal-assessment.md` | Cross-account audit of public repo portfolios and missed quality signals |
 | `docs/lessons-learned.md` | Lessons from owner-wide and cross-account audits |
 | `docs/repo-quality-popularity.md` | Research brief on whether repo quality affects popularity/adoption |
