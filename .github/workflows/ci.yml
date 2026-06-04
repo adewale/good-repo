@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: |
+          python3 -m json.tool package.json >/dev/null
+          python3 -m json.tool evals/evals.json >/dev/null
+          python3 -m json.tool evals/trigger-queries.json >/dev/null
+          python3 -m json.tool .claude-plugin/marketplace.json >/dev/null
+      - name: Check scripts
+        run: |
+          bash -n skills/good-repo/scripts/check-repo-readiness.sh
+          python3 -m py_compile skills/good-repo/scripts/audit-github-owner.py
+      - name: Check internal Markdown links
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          bad = []
+          for p in Path('.').rglob('*.md'):
+              text = p.read_text()
+              for m in re.finditer(r'\[[^\]]+\]\(([^)]+)\)', text):
+                  link = m.group(1).split('#', 1)[0]
+                  if not link or re.match(r'^[a-z]+:', link) or link.startswith('mailto:'):
+                      continue
+                  target = (p.parent / link).resolve()
+                  if not target.exists():
+                      bad.append((str(p), m.group(1)))
+          if bad:
+              for path, link in bad:
+                  print(f'{path}: broken link {link}')
+              raise SystemExit(1)
+          print('Internal Markdown links OK')
+          PY
+      - name: Run repo readiness script
+        run: |
+          bash skills/good-repo/scripts/check-repo-readiness.sh

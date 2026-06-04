@@ -1,0 +1,11 @@
+{
+  "name": "good-repo",
+  "description": "Audit and configure GitHub repositories for adoption, contribution, trust, discoverability, and maintenance health.",
+  "plugins": [
+    {
+      "name": "good-repo",
+      "source": "./",
+      "skills": ["./skills/good-repo"]
+    }
+  ]
+}

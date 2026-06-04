@@ -1,0 +1,47 @@
+{
+  "name": "good-repo",
+  "version": "0.1.0",
+  "description": "A GitHub repository effectiveness skill for auditing and configuring repos for adoption, contribution, and trust.",
+  "keywords": [
+    "github",
+    "repository",
+    "repo-health",
+    "documentation",
+    "readme",
+    "open-source",
+    "skill",
+    "agent-skills",
+    "claude-code",
+    "cursor",
+    "codex",
+    "pi",
+    "pi-package"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "skills",
+    ".claude-plugin",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "validate": "python3 -m json.tool package.json >/dev/null && python3 -m json.tool evals/evals.json >/dev/null && python3 -m json.tool evals/trigger-queries.json >/dev/null && python3 -m json.tool .claude-plugin/marketplace.json >/dev/null && bash -n skills/good-repo/scripts/check-repo-readiness.sh && python3 -m py_compile skills/good-repo/scripts/audit-github-owner.py"
+  },
+  "skill": {
+    "entry": "skills/good-repo/SKILL.md",
+    "references": "skills/good-repo/references",
+    "harnesses": [
+      "claude-code",
+      "cursor",
+      "codex",
+      "pi"
+    ]
+  },
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}

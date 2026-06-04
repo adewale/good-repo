@@ -1,0 +1,451 @@
+{
+  "skill_name": "good-repo",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit this public skill repo for launch readiness: it has a polished README, a SKILL.md, and references, but no LICENSE file, no GitHub topics, no evals, and no CI. What should I fix first?",
+      "expected_output": "Should not be dazzled by README polish. Should flag missing LICENSE as a launch/trust blocker, topics as discoverability, evals as proof for skill behavior, and CI/link/eval validation as automation hygiene. Should prioritize smallest concrete fixes.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "LICENSE",
+            "license"
+          ],
+          "description": "Flags missing license as a trust/legal issue."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "topics",
+            "GitHub topics",
+            "discoverability"
+          ],
+          "description": "Recommends GitHub topics for discoverability."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "eval",
+            "evals",
+            "evaluation"
+          ],
+          "description": "For skill repos, recommends evals as proof/regression protection."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "CI",
+            "workflow",
+            "link check",
+            "validation"
+          ],
+          "description": "Recommends lightweight validation automation."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Explain why https://github.com/adewale/good-pr is an exemplary repo and what patterns I should copy into my own small skill repo.",
+      "expected_output": "Should identify good-pr as a small operational skill exemplar: real maintainer pain origin, narrow scope, trigger-rich skill description, checklist, PR template, filled example, self-review checklist, readiness script, and evals. Should also mention gaps like missing detected license/topics/CI rather than copying blindly.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "real pain",
+            "maintainer",
+            "frustration",
+            "tweet",
+            "origin"
+          ],
+          "description": "Names the real-pain origin as a strength."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "template",
+            "filled example",
+            "PR template",
+            "checklist"
+          ],
+          "description": "Identifies templates/checklists as transferable artifacts."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "script",
+            "readiness",
+            "check-pr-readiness"
+          ],
+          "description": "Identifies the readiness script pattern."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "eval",
+            "evals",
+            "expected behavior"
+          ],
+          "description": "Identifies evals as proof/regression guard for skills."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "gap",
+            "not perfect",
+            "LICENSE",
+            "topics",
+            "CI"
+          ],
+          "description": "Does not copy blindly; notes fixable repo gaps."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Make this repo more like Hallmark. It is a tiny checklist skill with no visual output. Should we add a live demo gallery and a big site?",
+      "expected_output": "Should resist Hallmark cargo culting. For a tiny operational skill, recommend good-pr-style artifacts instead: clear README, template, filled example, self-review checklist, small script, evals, and only lightweight docs/proof. Should explain that Hallmark's live demo/gallery pattern is for visual/productized proof, not every skill.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "do not",
+            "don't",
+            "not necessary",
+            "cargo cult",
+            "doesn't need"
+          ],
+          "description": "Pushes back on blindly adding a live demo/gallery."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "good-pr",
+            "template",
+            "checklist",
+            "script",
+            "eval"
+          ],
+          "description": "Routes small operational skills toward the good-pr pattern."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "visual",
+            "proof",
+            "Hallmark",
+            "gallery"
+          ],
+          "description": "Explains when the Hallmark proof/gallery pattern applies."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Audit a repo whose README contains `Live: https://example-app.workers.dev/`, but GitHub metadata has an empty homepageUrl. What should be flagged?",
+      "expected_output": "Should detect that the repo has a likely live/demo URL but GitHub's homepage URL is not configured. Should recommend setting GitHub homepageUrl to the canonical live URL and keeping README/manifest/GitHub metadata aligned.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "homepage",
+            "homepageUrl",
+            "GitHub homepage"
+          ],
+          "description": "Mentions GitHub homepage configuration explicitly."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "Live",
+            "demo",
+            "URL",
+            "workers.dev"
+          ],
+          "description": "Recognizes the README live/demo URL as the candidate homepage."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "empty",
+            "not configured",
+            "missing",
+            "blank"
+          ],
+          "description": "Flags the missing GitHub homepage rather than only noting the URL exists."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "set",
+            "configure",
+            "align",
+            "metadata"
+          ],
+          "description": "Recommends the concrete fix."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Audit this Agent Skill repo layout: it has `skill/SKILL.md` with frontmatter `name: repo-auditor`, an `evals/` folder inside `skill/`, and `.claude-plugin/marketplace.json` with `{\"skills\":[\"skill\"]}`. What should change?",
+      "expected_output": "Should flag `skill/` singular and directory/name mismatch; recommend `skills/repo-auditor/SKILL.md`; move repo-only evals outside the installable skill directory; replace flat marketplace manifest with `plugins` array and `./skills/repo-auditor` path.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "skills/repo-auditor",
+            "skills/<name>",
+            "skills/",
+            "skill/ singular"
+          ],
+          "description": "Recommends top-level `skills/` plural and correct installable path."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "match",
+            "directory name",
+            "frontmatter",
+            "name"
+          ],
+          "description": "Flags the directory/frontmatter name mismatch."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "evals",
+            "outside",
+            "repo-only",
+            "installable"
+          ],
+          "description": "Keeps evals outside the runtime skill directory."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "plugins",
+            ".claude-plugin",
+            "./skills/repo-auditor",
+            "marketplace"
+          ],
+          "description": "Fixes Claude plugin marketplace metadata shape."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "A repo README links to `https://developers.cloudflare.com/workers/` under a section called Docs, but there is no live demo, no package homepage, and GitHub homepageUrl is empty. Should good-repo flag homepage URL drift?",
+      "expected_output": "Should not flag homepage drift just because a dependency/platform docs link exists. It should say blank homepage can be acceptable unless there is a project-owned demo/docs/package URL, and maybe recommend adding a homepage only if the project has a canonical site.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "do not",
+            "should not",
+            "not flag",
+            "not homepage drift"
+          ],
+          "description": "Avoids false-positive homepage drift."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "dependency",
+            "platform docs",
+            "Cloudflare docs",
+            "third-party docs"
+          ],
+          "description": "Recognizes the link as external docs, not project homepage."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "project-owned",
+            "canonical",
+            "live",
+            "demo",
+            "package"
+          ],
+          "description": "States the correct condition for homepage candidates."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Assess an owner profile with 30 public repos, 12 of which are old forks last updated in 2014, plus 8 active Cloudflare apps. What should the profile-level recommendations emphasize?",
+      "expected_output": "Should classify forks separately, recommend archiving or status notes for stale forks, and prioritize metadata/topics/homepage/license on active apps rather than applying the same launch-readiness rubric to every fork.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "fork",
+            "forks",
+            "reference"
+          ],
+          "description": "Treats forks as a separate class."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "archive",
+            "status note",
+            "historical",
+            "stale"
+          ],
+          "description": "Recommends archive/status notes for old forks."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "topics",
+            "metadata",
+            "homepage",
+            "license"
+          ],
+          "description": "Prioritizes active-repo metadata cleanup."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "not",
+            "different",
+            "separate",
+            "do not"
+          ],
+          "description": "Does not apply one product-launch rubric blindly to forks."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "A tiny personal experiment repo has a short README, no issues traffic, no external contributors, and no sensitive code. Should good-repo add CODE_OF_CONDUCT, SECURITY.md, issue forms, Dependabot, branch protection, and a large CI suite?",
+      "expected_output": "Should resist governance theater. Recommend only proportionate basics: clear README/status, license decision, maybe topics/homepage, and a small smoke check if maintained. Defer heavy governance unless the project seeks contributors or handles security-sensitive code.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "governance theater",
+            "proportionate",
+            "do not",
+            "not necessary",
+            "overkill"
+          ],
+          "description": "Pushes back on excessive process."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "README",
+            "status",
+            "license",
+            "topics"
+          ],
+          "description": "Recommends lightweight basics."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "defer",
+            "unless",
+            "contributors",
+            "security-sensitive"
+          ],
+          "description": "States conditions for heavier governance."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "A repo README says `MIT`, package.json says `license: MIT`, but GitHub reports licenseInfo null and there is no root LICENSE file. How should good-repo score and recommend?",
+      "expected_output": "Should flag license inconsistency/detection gap, not treat README/package claims as enough. Recommend adding a root LICENSE file matching MIT and aligning README/package/GitHub detection.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "LICENSE",
+            "root LICENSE",
+            "license file"
+          ],
+          "description": "Recommends root license file."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "GitHub",
+            "detected",
+            "licenseInfo",
+            "detection"
+          ],
+          "description": "Uses GitHub license detection as evidence."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "align",
+            "consistent",
+            "inconsistency",
+            "matches"
+          ],
+          "description": "Frames it as consistency across surfaces."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "A skill repo has README, SKILL.md, and examples. It has CI that only runs `npm test`, but no evals for skill behavior. What should good-repo recommend?",
+      "expected_output": "Should say examples are not enough proof for a skill; recommend evals that test trigger behavior and non-obvious skill judgment, plus CI validation for eval JSON/runner if available.",
+      "assertions": [
+        {
+          "type": "content_includes_any",
+          "value": [
+            "eval",
+            "evals",
+            "evaluation"
+          ],
+          "description": "Recommends skill behavior evals."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "trigger",
+            "non-obvious",
+            "judgment",
+            "behavior"
+          ],
+          "description": "Names what evals should test."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "examples are not enough",
+            "not enough",
+            "proof",
+            "regression"
+          ],
+          "description": "Distinguishes examples from regression proof."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "CI",
+            "validate",
+            "JSON",
+            "runner"
+          ],
+          "description": "Connects evals to validation/CI."
+        }
+      ],
+      "files": []
+    }
+  ]
+}

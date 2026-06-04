@@ -1,0 +1,81 @@
+{
+  "skill_name": "good-repo",
+  "description": "Trigger accuracy cases for when good-repo should and should not load.",
+  "cases": [
+    {
+      "id": "pos-repo-quality-audit",
+      "prompt": "Audit this repository and tell me whether it is launch-ready.",
+      "should_trigger": true,
+      "reason": "Direct repo quality / launch readiness request."
+    },
+    {
+      "id": "pos-github-metadata",
+      "prompt": "What GitHub topics, homepage, and description should I set for this project?",
+      "should_trigger": true,
+      "reason": "GitHub metadata configuration."
+    },
+    {
+      "id": "pos-homepage-drift",
+      "prompt": "The README has a live demo URL but GitHub does not show it in the sidebar. Can you check this?",
+      "should_trigger": true,
+      "reason": "Homepage URL drift detection."
+    },
+    {
+      "id": "pos-owner-audit",
+      "prompt": "Assess every repo under github.com/adewale and tell me what to clean up first.",
+      "should_trigger": true,
+      "reason": "Owner/profile-wide repo audit."
+    },
+    {
+      "id": "pos-skill-layout",
+      "prompt": "Is this Agent Skill repo structured correctly for Claude, Codex, and Pi?",
+      "should_trigger": true,
+      "reason": "Skill repo packaging/layout assessment."
+    },
+    {
+      "id": "pos-exemplar-comparison",
+      "prompt": "What makes hallmark and good-pr exemplary repos, and how should we copy those patterns here?",
+      "should_trigger": true,
+      "reason": "Exemplar comparison and transferable repo patterns."
+    },
+    {
+      "id": "soft-readme-plus-launch",
+      "prompt": "Improve the README and tell me what else this repo needs before launch.",
+      "should_trigger": true,
+      "reason": "README plus repo-level launch gaps; pair with good-readme."
+    },
+    {
+      "id": "neg-readme-only",
+      "prompt": "Rewrite this README introduction to be clearer and more concise.",
+      "should_trigger": false,
+      "preferred_skill": "good-readme",
+      "reason": "README-only writing should use the README specialist."
+    },
+    {
+      "id": "neg-pr-only",
+      "prompt": "Help me write a PR description for this bug fix.",
+      "should_trigger": false,
+      "preferred_skill": "good-pr",
+      "reason": "Single PR packaging belongs to good-pr."
+    },
+    {
+      "id": "neg-test-implementation",
+      "prompt": "Write Vitest tests for this parser and improve assertion quality.",
+      "should_trigger": false,
+      "preferred_skill": "testing-best-practices",
+      "reason": "Test implementation/quality belongs to testing-best-practices."
+    },
+    {
+      "id": "neg-code-review-only",
+      "prompt": "Review this auth middleware for correctness and security bugs.",
+      "should_trigger": false,
+      "reason": "Code review without repo public-surface concern."
+    },
+    {
+      "id": "neg-issue-triage-only",
+      "prompt": "Triage these GitHub issues and suggest labels.",
+      "should_trigger": false,
+      "reason": "Issue triage alone is not repo effectiveness unless tied to repo configuration/process."
+    }
+  ]
+}
