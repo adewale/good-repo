@@ -13,6 +13,7 @@ jobs:
       - name: Validate JSON
         run: |
           python3 -m json.tool package.json >/dev/null
+          python3 -m json.tool skills.sh.json >/dev/null
           python3 -m json.tool evals/evals.json >/dev/null
           python3 -m json.tool evals/trigger-queries.json >/dev/null
           python3 -m json.tool .claude-plugin/marketplace.json >/dev/null

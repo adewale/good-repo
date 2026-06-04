@@ -2,6 +2,8 @@
 
 A skill for making GitHub repositories easier to evaluate, adopt, contribute to, and trust.
 
+[![skills.sh](https://skills.sh/b/adewale/good-repo)](https://skills.sh/adewale/good-repo/good-repo)
+
 `good-repo` audits a repository as a product surface: README, proof, examples, install path, repo structure, GitHub metadata, automation, maintenance signals, and community defaults. It is designed to pair with [`good-readme`](https://github.com/adewale/good-readme): let `good-readme` handle the README deeply; use `good-repo` for everything around it.
 
 ## Why this exists
@@ -123,6 +125,7 @@ good-repo owner-audit adewale
 | `evals/run_fixture_tests.py` | Fixture-level tests for mechanical repo readiness checks |
 | `evals/fixtures/` | Tiny repos for homepage, license, and skill-layout regression checks |
 | `evals/README.md` | Eval strategy for improving the skill |
+| `skills.sh.json` | skills.sh repository-page grouping metadata |
 | `docs/eval-results-2026-06-03.md` | First with-skill vs baseline smoke eval results |
 | `docs/eval-results-2026-06-04.md` | Full behavior eval suite results with with-skill vs baseline comparison |
 | `skills/good-repo/references/hallmark-exemplar.md` | What makes Hallmark an exemplary productized skill repo |
