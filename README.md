@@ -69,20 +69,45 @@ good-repo owner-audit adewale
 ```markdown
 ## Repo Effectiveness Audit
 
-**Project:** hallmark
-**Class:** agent skill / design system
-**Score:** 91 / 100
-**Rating:** Exemplary
+**Project:** good-repo
+**Class:** agent skill / repo-effectiveness auditor
+**Score:** 85 / 100
+**Rating:** Strong
+
+### Snapshot
+- README/front door: clear purpose, install path, usage prompts, and relationship to good-readme.
+- Proof: full behavior eval results, fixture tests, sample audits, and lessons learned are present.
+- Adoption path: install command, `package.json`, `.claude-plugin`, and `pi.skills` metadata are configured.
+- GitHub metadata: description, topics, detected MIT license, issues enabled, wiki disabled; no canonical homepage yet.
+- Trust/maintenance: changelog, contributing guide, PR template, CI, and validation scripts exist; issue templates/support/security are still missing.
 
 ### Top strengths
-1. Proof-first README — live demo, screenshots, examples, install command.
-2. Skill packaging is clear — `package.json` points to `skills/hallmark/SKILL.md` and references.
-3. Progressive disclosure — README stays short; detailed rules live in `references/` and docs.
+1. Correct skill packaging — evidence: `skills/good-repo/SKILL.md`, `references/`, `.claude-plugin/marketplace.json`.
+2. Behavior proof is credible — evidence: `evals/evals.json`, `evals/run_eval.py`, `docs/eval-results-2026-06-04.md`.
+3. Repo-only artifacts are separated from runtime files — evidence: `docs/`, `evals/`, `.github/` live outside `skills/good-repo/`.
 
 ### Priority improvements
-1. Add GitHub topics — `skill`, `claude-code`, `cursor`, `codex`, `design-system`.
-2. Add CONTRIBUTING.md or expand contributor workflow.
-3. Add a lightweight CI check for skill metadata and internal links.
+1. High impact — GitHub Community Profile is not complete — smallest fix: add `.github/ISSUE_TEMPLATE/bug_report.yml` and `.github/ISSUE_TEMPLATE/eval_case.yml`.
+2. Medium impact — support/security expectations are implicit — smallest fix: add `SUPPORT.md` and `SECURITY.md` with honest scope.
+3. Polish — README does not yet compare `good-repo` with Community Profile, Repolinter, and OpenSSF Scorecard — smallest fix: add a short positioning section.
+
+### Scores by category
+| Category | Score | Max |
+| --- | ---: | ---: |
+| Front door + README | 18 | 20 |
+| Proof + examples | 13 | 15 |
+| Adoption + DX | 13 | 15 |
+| Docs + architecture | 14 | 15 |
+| GitHub metadata | 8 | 10 |
+| Trust + governance | 10 | 15 |
+| Automation + release | 9 | 10 |
+| **Total** | 85 | 100 |
+
+### Suggested implementation plan
+1. Add issue templates for bug reports and new eval cases.
+2. Add `SUPPORT.md` and `SECURITY.md` after confirming maintainer contact/scope.
+3. Add a README section that positions `good-repo` against GitHub Community Profile, Repolinter, OpenSSF Scorecard, and package-health tools.
+4. Re-run `npm run validate`, fixture evals, and the repo readiness script.
 ```
 
 ## What's included
