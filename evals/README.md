@@ -12,6 +12,7 @@ This strategy follows the useful parts of Anthropic's `skill-creator` workflow: 
 - CI runs lightweight eval validation and fixture tests on every push/PR.
 - A first smoke eval was run on 2026-06-03; see `docs/eval-results-2026-06-03.md`.
 - The full behavior eval suite was run on 2026-06-04; see `docs/eval-results-2026-06-04.md`.
+- The shared-harness baseline smoke (`../baseline-metrics/baseline-smoke-benchmark.json`) showed objective lift on `neg-tiny-personal-experiment` (`with_skill` 1.0 vs `without_skill` 0.0); the proportionality assertions were hardened so future passes must defer governance/CI artifacts, not merely echo “experiment”.
 - Trigger-rate evals for `evals/trigger-queries.json` have **not** been run yet.
 
 ## What to evaluate

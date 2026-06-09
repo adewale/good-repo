@@ -1,0 +1,801 @@
+{
+  "version": 1,
+  "skill_name": "good-repo",
+  "skill_paths": [
+    "skills/good-repo/SKILL.md"
+  ],
+  "old_skill_paths": [],
+  "variants": [
+    "with_skill",
+    "without_skill"
+  ],
+  "optional_variants": [
+    "old_skill"
+  ],
+  "split_policy": {
+    "tune": "Visible cases used during iteration. Failures may drive skill/reference edits.",
+    "holdout": "Hidden cases scored only at end-of-round or merge. Prefer prompt_ref files outside committed docs/examples.",
+    "holdback": "Examples not shown in SKILL.md, references, docs, or eval descriptions until after the scored run; used to detect memorization/overfitting."
+  },
+  "run_protocol": {
+    "paired": "Run with_skill and without_skill in the same round; optionally run old_skill from a pinned artifact/branch.",
+    "outputs": "Save outputs as runs/<case_id>/<variant>/output.md and metadata as runs/<case_id>/<variant>/metadata.json.",
+    "metadata": [
+      "elapsed_ms",
+      "input_tokens",
+      "output_tokens",
+      "total_tokens",
+      "model"
+    ],
+    "analyst_pass": "After benchmark, review saturated, flaky, non-discriminating, and with-skill-failed cases before editing the skill."
+  },
+  "notes": "",
+  "cases": [
+    {
+      "id": "pos-library-no-package-release",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Audit a library repo with good code but no package metadata, versioning, or release path.",
+      "expected_behavior": [
+        "Classify repo and recommend smallest concrete repo-surface fixes."
+      ],
+      "assertions": [
+        {
+          "name": "detect-library-no-package-release",
+          "type": "contains_any",
+          "values": [
+            "package",
+            "release",
+            "version"
+          ]
+        },
+        {
+          "name": "actionable",
+          "type": "contains_any",
+          "values": [
+            "smallest",
+            "concrete",
+            "fix",
+            "priority"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Repo-class classification",
+            "Evidence",
+            "Actionability"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "pos-webapp-live-url-homepage-blank",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Web app README has a live URL but GitHub homepage is blank.",
+      "expected_behavior": [
+        "Classify repo and recommend smallest concrete repo-surface fixes."
+      ],
+      "assertions": [
+        {
+          "name": "detect-webapp-live-url-homepage-blank",
+          "type": "contains_any",
+          "values": [
+            "homepage",
+            "live URL"
+          ]
+        },
+        {
+          "name": "actionable",
+          "type": "contains_any",
+          "values": [
+            "smallest",
+            "concrete",
+            "fix",
+            "priority"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Repo-class classification",
+            "Evidence",
+            "Actionability"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "pos-skill-evals-inside-runtime",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Skill repo has evals inside the installable skill folder. Audit packaging.",
+      "expected_behavior": [
+        "Classify repo and recommend smallest concrete repo-surface fixes."
+      ],
+      "assertions": [
+        {
+          "name": "detect-skill-evals-inside-runtime",
+          "type": "contains_any",
+          "values": [
+            "evals",
+            "runtime",
+            "installable"
+          ]
+        },
+        {
+          "name": "actionable",
+          "type": "contains_any",
+          "values": [
+            "smallest",
+            "concrete",
+            "fix",
+            "priority"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Repo-class classification",
+            "Evidence",
+            "Actionability"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "pos-large-generated-assets",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Repo has large generated assets checked in. Assess repo front door and bloat risk.",
+      "expected_behavior": [
+        "Classify repo and recommend smallest concrete repo-surface fixes."
+      ],
+      "assertions": [
+        {
+          "name": "detect-large-generated-assets",
+          "type": "contains_any",
+          "values": [
+            "generated",
+            "assets",
+            "bloat"
+          ]
+        },
+        {
+          "name": "actionable",
+          "type": "contains_any",
+          "values": [
+            "smallest",
+            "concrete",
+            "fix",
+            "priority"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Repo-class classification",
+            "Evidence",
+            "Actionability"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "pos-template-no-proof",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Template repo has nice README but no proof/demo/tests/examples.",
+      "expected_behavior": [
+        "Classify repo and recommend smallest concrete repo-surface fixes."
+      ],
+      "assertions": [
+        {
+          "name": "detect-template-no-proof",
+          "type": "contains_any",
+          "values": [
+            "proof",
+            "demo",
+            "examples"
+          ]
+        },
+        {
+          "name": "actionable",
+          "type": "contains_any",
+          "values": [
+            "smallest",
+            "concrete",
+            "fix",
+            "priority"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Repo-class classification",
+            "Evidence",
+            "Actionability"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "pos-mit-claim-no-license",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "README/package says MIT but no root LICENSE exists.",
+      "expected_behavior": [
+        "Classify repo and recommend smallest concrete repo-surface fixes."
+      ],
+      "assertions": [
+        {
+          "name": "detect-mit-claim-no-license",
+          "type": "contains_any",
+          "values": [
+            "LICENSE",
+            "MIT",
+            "root"
+          ]
+        },
+        {
+          "name": "actionable",
+          "type": "contains_any",
+          "values": [
+            "smallest",
+            "concrete",
+            "fix",
+            "priority"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Repo-class classification",
+            "Evidence",
+            "Actionability"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "neg-tiny-personal-experiment",
+      "split": "tune",
+      "kind": "adversarial",
+      "prompt": "A tiny personal experiment repo has a short README, no issues traffic, no external contributors, and no sensitive code. Audit it. Should it add CODE_OF_CONDUCT, SECURITY.md, issue forms, Dependabot, branch protection, and a large CI suite?",
+      "expected_behavior": [
+        "Keep recommendations proportionate/right-sized for a tiny personal experiment.",
+        "Recommend lightweight basics and explicitly defer governance/CI artifacts unless contributor, security, package, release, or maintainer-capacity conditions exist."
+      ],
+      "assertions": [
+        {
+          "name": "right-sized-experiment",
+          "type": "contains_any",
+          "values": [
+            "proportionate",
+            "right-sized",
+            "right-size",
+            "governance theater",
+            "overkill",
+            "template-zombie",
+            "proportional",
+            "proportional to scope"
+          ]
+        },
+        {
+          "name": "defer-heavy-governance",
+          "type": "regex",
+          "pattern": "\\b(defer|skip|avoid|not necessary|overkill|do not|don't)\\b[\\s\\S]{0,220}\\b(CODE_OF_CONDUCT|code of conduct|SECURITY\\.md|security policy|issue forms?|Dependabot|branch protection|large CI|CI suite)\\b|\\b(CODE_OF_CONDUCT|code of conduct|SECURITY\\.md|security policy|issue forms?|Dependabot|branch protection|large CI|CI suite)\\b[\\s\\S]{0,220}\\b(defer|skip|avoid|not necessary|overkill|do not|don't)\\b",
+          "description": "Must explicitly reject or defer at least one heavy governance/automation artifact."
+        },
+        {
+          "name": "lightweight-basics",
+          "type": "contains_any",
+          "values": [
+            "README",
+            "status",
+            "run command",
+            "expected result",
+            "smoke check",
+            "license decision"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Proportionality",
+            "False-positive restraint",
+            "Names lightweight basics",
+            "Defers heavy governance unless clear conditions apply"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "neg-third-party-docs-homepage",
+      "split": "tune",
+      "kind": "adversarial",
+      "prompt": "README links to framework docs; do not treat it as homepage drift.",
+      "expected_behavior": [
+        "Avoid cargo-cult public launch checklist and false positives."
+      ],
+      "assertions": [
+        {
+          "name": "avoid-third-party-docs-homepage",
+          "type": "contains_any",
+          "values": [
+            "third-party",
+            "docs",
+            "not homepage"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Proportionality",
+            "False-positive restraint"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "neg-popular-poor-stars",
+      "split": "tune",
+      "kind": "adversarial",
+      "prompt": "Popular repo with many stars but poor docs/trust. Do not let stars override quality issues.",
+      "expected_behavior": [
+        "Avoid cargo-cult public launch checklist and false positives."
+      ],
+      "assertions": [
+        {
+          "name": "avoid-popular-poor-stars",
+          "type": "contains_any",
+          "values": [
+            "stars",
+            "quality",
+            "caveat"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Proportionality",
+            "False-positive restraint"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "neg-private-internal",
+      "split": "tune",
+      "kind": "adversarial",
+      "prompt": "Quiet internal/private operational repo; public launch checklist may not apply.",
+      "expected_behavior": [
+        "Avoid cargo-cult public launch checklist and false positives."
+      ],
+      "assertions": [
+        {
+          "name": "avoid-private-internal",
+          "type": "contains_any",
+          "values": [
+            "internal",
+            "private",
+            "not public"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Proportionality",
+            "False-positive restraint"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "neg-legal-confirmation",
+      "split": "tune",
+      "kind": "adversarial",
+      "prompt": "Add license/governance changes? Audit should ask confirmation before legal changes.",
+      "expected_behavior": [
+        "Avoid cargo-cult public launch checklist and false positives."
+      ],
+      "assertions": [
+        {
+          "name": "avoid-legal-confirmation",
+          "type": "contains_any",
+          "values": [
+            "confirm",
+            "legal",
+            "approval"
+          ]
+        },
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Proportionality",
+            "False-positive restraint"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "trig-launch",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: is this repo launch-ready?\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "trig-owner-audit",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: audit all repos for this owner\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "trig-metadata",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: what topics/homepage should I set?\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "trig-skill-packaging",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: review this skill repo packaging\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "trig-readme-only",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: rewrite only the README\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return NO_TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*NO_TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "trig-pr-description",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: write a PR description\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return NO_TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*NO_TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "trig-write-tests",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: write tests for this function\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return NO_TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*NO_TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "trig-architecture",
+      "split": "tune",
+      "kind": "trigger",
+      "prompt": "Trigger decision eval. User prompt: review architecture internals\n\nReturn exactly one label first: TRIGGER or NO_TRIGGER. Then give one short reason.",
+      "expected_behavior": [
+        "Should return NO_TRIGGER for this skill."
+      ],
+      "assertions": [
+        {
+          "name": "expected-trigger-label",
+          "type": "regex",
+          "pattern": "(?m)^\\s*NO_TRIGGER\\b",
+          "description": "First line must be the exact trigger decision label."
+        }
+      ],
+      "tags": [
+        "trigger"
+      ]
+    },
+    {
+      "id": "holdout-repo-class-cli-01",
+      "split": "holdout",
+      "kind": "repo-audit",
+      "scenario": "Hidden CLI repo metadata JSON and files",
+      "prompt_ref": "holdout/repo-class-cli-01.txt",
+      "expected_behavior": [
+        "Classify CLI and find adoption-path gaps."
+      ],
+      "assertions": [
+        {
+          "name": "qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Classification",
+            "Smallest fix"
+          ]
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "holdback-internal-operational-01",
+      "split": "holdback",
+      "kind": "repo-audit",
+      "scenario": "Private holdback case. Exact scenario and answer key live outside committed docs/eval descriptions.",
+      "prompt_ref": "holdback/internal-operational-01.txt",
+      "answer_ref": "holdback/answers/internal-operational-01.json",
+      "expected_behavior": [
+        "Private holdback scoring: load prompt and answer key only for the scored run, then reveal after scoring if desired."
+      ],
+      "assertions": [
+        {
+          "name": "private-holdback-review",
+          "type": "judge",
+          "rubric": [
+            "Use the private answer key; do not rely on public manifest wording."
+          ]
+        }
+      ],
+      "tags": [
+        "holdback-private"
+      ]
+    },
+    {
+      "id": "neg-internal-spike-no-public-launch-checklist",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Audit this repo: private two-file spike, no users, no releases, no package publishing, and README says “scratchpad for trying a parser idea.” Should it add badges, CI matrix, changelog, semantic-release, and contribution guide before continuing?",
+      "expected_behavior": [
+        "Classify as tiny/private spike.",
+        "Avoid public launch checklist; recommend only right-sized next steps."
+      ],
+      "assertions": [
+        {
+          "name": "classifies-spike",
+          "type": "contains_any",
+          "values": [
+            "spike",
+            "scratchpad",
+            "private",
+            "experiment"
+          ]
+        },
+        {
+          "name": "right-sized",
+          "type": "contains_any",
+          "values": [
+            "right-sized",
+            "proportional",
+            "not necessary",
+            "overkill"
+          ]
+        },
+        {
+          "name": "avoids-launch-checklist",
+          "type": "not_regex",
+          "pattern": "(?i)(semantic-release|changelog|contribution guide|CI matrix).{0,80}(must|required|needed)"
+        },
+        {
+          "name": "round-2-qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Proportionality",
+            "Repo-class classification",
+            "Smallest concrete fix"
+          ]
+        }
+      ],
+      "tags": [
+        "round-2",
+        "anthropic-gap",
+        "proportionality"
+      ]
+    },
+    {
+      "id": "round3-fixture-private-spike",
+      "split": "tune",
+      "kind": "repo-audit",
+      "files": [
+        "fixtures/round3-private-spike/README.md",
+        "fixtures/round3-private-spike/package.json"
+      ],
+      "prompt": "Audit the attached tiny private repo. Should it add public-launch surface before continuing?",
+      "expected_behavior": [
+        "Classify as private scratchpad/spike.",
+        "Avoid badges/changelog/semantic-release/contribution-guide cargo cult; recommend right-sized next check."
+      ],
+      "assertions": [
+        {
+          "name": "classifies-private-spike",
+          "type": "contains_any",
+          "values": [
+            "private",
+            "scratchpad",
+            "spike",
+            "experiment"
+          ]
+        },
+        {
+          "name": "right-sized-next-step",
+          "type": "contains_any",
+          "values": [
+            "right-sized",
+            "proportional",
+            "smallest",
+            "not necessary"
+          ]
+        },
+        {
+          "name": "no-public-launch-musts",
+          "type": "not_regex",
+          "pattern": "(?i)(semantic-release|changelog|contribution guide|badges).{0,80}(must|required|needed)"
+        },
+        {
+          "name": "round-3-qualitative-review",
+          "type": "judge",
+          "rubric": [
+            "Proportionality",
+            "Evidence from fixture",
+            "Smallest concrete fix"
+          ]
+        }
+      ],
+      "tags": [
+        "round-3",
+        "fixture-backed",
+        "audit-manifest"
+      ]
+    }
+  ],
+  "ablations": [
+    {
+      "id": "no-repo-class",
+      "removed_component": "repo-class classification",
+      "expected_regressions": [
+        "Cargo-cults wrong checklist for experiments/forks/internal repos."
+      ],
+      "applies_to_cases": [
+        "neg-tiny-personal-experiment"
+      ]
+    },
+    {
+      "id": "no-good-readme-deferral",
+      "removed_component": "good-readme deferral",
+      "expected_regressions": [
+        "Over-handles README-only tasks."
+      ],
+      "applies_to_cases": []
+    },
+    {
+      "id": "no-homepage-drift",
+      "removed_component": "homepage drift check",
+      "expected_regressions": [
+        "Misses blank/misleading homepage metadata."
+      ],
+      "applies_to_cases": []
+    },
+    {
+      "id": "no-popularity-caveats",
+      "removed_component": "popularity caveats",
+      "expected_regressions": [
+        "Treats stars as direct quality proof."
+      ],
+      "applies_to_cases": []
+    },
+    {
+      "id": "no-smallest-fix",
+      "removed_component": "smallest concrete fix rule",
+      "expected_regressions": [
+        "Recommendations become vague or overbroad."
+      ],
+      "applies_to_cases": [
+        "neg-tiny-personal-experiment"
+      ]
+    }
+  ]
+}
