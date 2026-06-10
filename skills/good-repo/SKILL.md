@@ -1,15 +1,16 @@
 ---
 name: good-repo
 description: >
-  Audit and configure GitHub repositories for adoption, trust, discoverability,
-  maintainability, and contribution readiness. Use when the user asks to assess
-  repo quality, prepare a GitHub launch, improve repo structure or metadata,
-  configure GitHub topics/homepage/issues/wiki/license/CI, compare against
-  exemplary repos, run an owner/org-wide repo audit, analyze repo popularity or
-  adoption signals, detect README/package/GitHub drift, fix homepage
-  URL/license/topics gaps, or review Agent Skill repo packaging/evals. Do not
-  trigger for README-only writing when good-readme is
-  the better specialist, except to assess repo-level gaps around the README.
+  Audit and configure the public GitHub repository surface: launch readiness,
+  repo quality/adoption/trust, discoverability, contribution readiness, topics,
+  homepage URL, description, issues/wiki/license/CI settings, owner/org-wide repo
+  audits, repo popularity/adoption signals, README/package/GitHub metadata drift,
+  URL/license/topics gaps, and Agent Skill repo packaging/evals. Use when the user
+  asks for repo-level readiness, repo metadata/configuration, or visitor/contributor
+  trust. Do not trigger for README-only writing, one PR descriptions/reviews,
+  function-level code tests, or general implementation/architecture work; defer
+  those to narrower specialists unless the user explicitly asks for repo-level
+  readiness/proof/metadata judgment.
 license: MIT
 references:
   - references/hallmark-exemplar.md
@@ -155,6 +156,19 @@ Classify the repo:
 - **Internal / private operational repo**
 
 State the class because "excellent" differs by class.
+
+### 0a. Proportionality gate
+
+Before applying any public-launch or Community Profile checklist, name the repo's lifecycle and audience. For personal experiments, internal/private repos, forks/reference repos, and historical artifacts, recommendations must be **proportionate** and **right-sized** rather than governance theater.
+
+For a tiny personal experiment, prioritize only the lightweight basics that fit the evidence:
+
+- README purpose/status, install/run command, and expected result.
+- Dependency, secret, privacy, or data-loss footguns if present.
+- License decision only when the repo is public/reusable or the owner asks.
+- One small smoke check only if the repo is actively maintained or claims repeatable behavior.
+
+Explicitly defer heavy process until the condition exists: external contributors, security-sensitive code/service, package consumers, active releases, or maintainer capacity. Do not recommend `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue forms, Dependabot, branch protection, release automation, or a large CI suite just to improve a score. If those surfaces are not applicable, mark them N/A or low-priority with the condition that would make them relevant.
 
 ### 1. README handoff
 

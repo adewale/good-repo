@@ -12,3 +12,5 @@ eval-workspace/
 .env
 .env.*
 !.env.example
+
+eval-runs/

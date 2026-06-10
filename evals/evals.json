@@ -327,7 +327,7 @@
     {
       "id": 8,
       "prompt": "A tiny personal experiment repo has a short README, no issues traffic, no external contributors, and no sensitive code. Should good-repo add CODE_OF_CONDUCT, SECURITY.md, issue forms, Dependabot, branch protection, and a large CI suite?",
-      "expected_output": "Should resist governance theater. Recommend only proportionate basics: clear README/status, license decision, maybe topics/homepage, and a small smoke check if maintained. Defer heavy governance unless the project seeks contributors or handles security-sensitive code.",
+      "expected_output": "Should explicitly keep the audit proportionate/right-sized and resist governance/CI theater. Recommend only lightweight basics: clear README purpose/status, install/run command, license decision if public/reusable, and maybe one small smoke check if maintained. Explicitly defer CODE_OF_CONDUCT, SECURITY.md, issue forms, Dependabot, branch protection, and large CI until there are external contributors, security-sensitive code, package consumers, active releases, or maintainer capacity.",
       "assertions": [
         {
           "type": "content_includes_any",
@@ -336,32 +336,49 @@
             "governance/CI theater",
             "proportionate",
             "right-size",
-            "do not",
-            "not necessary",
+            "right-sized",
             "overkill",
             "template-zombie"
           ],
-          "description": "Pushes back on excessive process."
+          "description": "Pushes back on excessive process using proportionality language."
         },
         {
-          "type": "content_includes_any",
+          "type": "content_includes_all",
           "value": [
             "README",
             "status",
-            "license",
-            "topics"
+            "license"
           ],
-          "description": "Recommends the lightweight repo basics first."
+          "description": "Recommends lightweight repo basics before governance."
         },
         {
           "type": "content_includes_any",
           "value": [
-            "defer",
-            "unless",
-            "contributors",
-            "security-sensitive"
+            "smoke check",
+            "small smoke",
+            "minimal test",
+            "run command",
+            "expected result"
           ],
-          "description": "States conditions for heavier governance."
+          "description": "Keeps validation lightweight and tied to the experiment's real promise."
+        },
+        {
+          "type": "regex_includes",
+          "value": "\\b(defer|skip|avoid|not necessary|overkill|do not|don't)\\b[\\s\\S]{0,220}\\b(CODE_OF_CONDUCT|code of conduct|SECURITY\\.md|security policy|issue forms?|Dependabot|branch protection|large CI|CI suite)\\b|\\b(CODE_OF_CONDUCT|code of conduct|SECURITY\\.md|security policy|issue forms?|Dependabot|branch protection|large CI|CI suite)\\b[\\s\\S]{0,220}\\b(defer|skip|avoid|not necessary|overkill|do not|don't)\\b",
+          "description": "Explicitly defers heavy governance or automation artifacts."
+        },
+        {
+          "type": "content_includes_any",
+          "value": [
+            "unless",
+            "until",
+            "contributors",
+            "security-sensitive",
+            "package consumers",
+            "active releases",
+            "maintainer capacity"
+          ],
+          "description": "States the condition that would make heavier governance relevant."
         }
       ],
       "files": []
