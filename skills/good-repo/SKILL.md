@@ -12,6 +12,7 @@ description: >
   those to narrower specialists unless the user explicitly asks for repo-level
   readiness/proof/metadata judgment.
 license: MIT
+compatibility: Agent Skills clients including Codex, OpenCode, Pi, Gemini CLI, and Claude Code.
 references:
   - references/hallmark-exemplar.md
   - references/good-pr-exemplar.md

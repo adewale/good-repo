@@ -25,6 +25,18 @@ Or copy `skills/good-repo/` into your agent skills directory.
 
 For Pi package installs, the `package.json` includes `pi.skills`; for Claude/plugin installs, `.claude-plugin/marketplace.json` points to `./skills/good-repo`.
 
+## Agent compatibility
+
+The installable skill directory is `skills/good-repo`. It uses the Agent Skills `SKILL.md` format and is configured for Codex, OpenCode, Pi, Gemini CLI, and Claude Code.
+
+| Agent/client | Install or use |
+|---|---|
+| Codex | `cp -R skills/good-repo ~/.codex/skills/good-repo` |
+| OpenCode | `cp -R skills/good-repo ~/.config/opencode/skills/good-repo` or use `.opencode/skills/good-repo` in a project |
+| Pi | `pi install https://github.com/adewale/good-repo` or `pi --skill skills/good-repo` |
+| Gemini CLI | `gemini skills install https://github.com/adewale/good-repo --path skills/good-repo` or copy to `.gemini/skills/good-repo` |
+| Claude Code | `npx skills add adewale/good-repo` or copy to `.claude/skills/good-repo` |
+
 ## Usage
 
 Ask your coding agent from inside a repository:
