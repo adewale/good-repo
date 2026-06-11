@@ -15,7 +15,9 @@
     "cursor",
     "codex",
     "pi",
-    "pi-package"
+    "pi-package",
+    "opencode",
+    "gemini"
   ],
   "license": "MIT",
   "type": "module",
@@ -33,13 +35,15 @@
   },
   "skill": {
     "entry": "skills/good-repo/SKILL.md",
-    "references": "skills/good-repo/references",
     "harnesses": [
       "claude-code",
       "cursor",
       "codex",
-      "pi"
-    ]
+      "opencode",
+      "pi",
+      "gemini"
+    ],
+    "references": "skills/good-repo/references"
   },
   "pi": {
     "skills": [
