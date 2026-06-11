@@ -74,7 +74,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "pos-webapp-live-url-homepage-blank",
@@ -113,7 +119,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "pos-skill-evals-inside-runtime",
@@ -153,7 +165,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "pos-large-generated-assets",
@@ -193,7 +211,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "pos-template-no-proof",
@@ -233,7 +257,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "pos-mit-claim-no-license",
@@ -273,7 +303,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "neg-tiny-personal-experiment",
@@ -328,7 +364,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "neg-third-party-docs-homepage",
@@ -357,7 +399,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "neg-popular-poor-stars",
@@ -386,7 +434,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "neg-private-internal",
@@ -415,7 +469,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "neg-legal-confirmation",
@@ -444,7 +504,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "trig-launch",
@@ -464,7 +530,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "implicit"
     },
     {
       "id": "trig-owner-audit",
@@ -484,7 +556,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "implicit"
     },
     {
       "id": "trig-metadata",
@@ -504,7 +582,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "implicit"
     },
     {
       "id": "trig-skill-packaging",
@@ -524,7 +608,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "implicit"
     },
     {
       "id": "trig-readme-only",
@@ -544,7 +634,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "negative-near-miss"
     },
     {
       "id": "trig-pr-description",
@@ -564,7 +660,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "negative-near-miss"
     },
     {
       "id": "trig-write-tests",
@@ -584,7 +686,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "negative-near-miss"
     },
     {
       "id": "trig-architecture",
@@ -604,7 +712,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "negative-near-miss"
     },
     {
       "id": "holdout-repo-class-cli-01",
@@ -625,7 +739,13 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
+      ]
     },
     {
       "id": "holdback-internal-operational-01",
@@ -648,6 +768,12 @@
       ],
       "tags": [
         "holdback-private"
+      ],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
       ]
     },
     {
@@ -699,6 +825,12 @@
         "round-2",
         "anthropic-gap",
         "proportionality"
+      ],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
       ]
     },
     {
@@ -757,6 +889,12 @@
         "round-3",
         "fixture-backed",
         "audit-manifest"
+      ],
+      "domain": "repository-quality",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome",
+        "style"
       ]
     }
   ],
