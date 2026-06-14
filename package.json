@@ -1,6 +1,6 @@
 {
   "name": "good-repo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A GitHub repository effectiveness skill for auditing and configuring repos for adoption, contribution, and trust.",
   "keywords": [
     "github",
@@ -22,7 +22,10 @@
   "license": "MIT",
   "type": "module",
   "files": [
-    "skills",
+    "skills/good-repo/SKILL.md",
+    "skills/good-repo/references",
+    "skills/good-repo/scripts/*.py",
+    "skills/good-repo/scripts/*.sh",
     ".claude-plugin",
     "README.md",
     "LICENSE",

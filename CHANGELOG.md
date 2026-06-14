@@ -2,6 +2,11 @@
 
 All notable changes to `good-repo` will be documented here.
 
+## 0.1.1 — 2026-06-13
+
+- Tightened npm package `files` allowlist to include only runtime skill files, marketplace metadata, and public repo docs.
+- Excluded local Python cache artifacts from the install bundle.
+
 ## 0.1.0 — 2026-06-03
 
 - Initial skill scaffold.
