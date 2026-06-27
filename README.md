@@ -92,11 +92,11 @@ good-repo owner-audit adewale
 - README/front door: clear purpose, install path, usage prompts, and relationship to good-readme.
 - Proof: full behavior eval results, fixture tests, sample audits, and lessons learned are present.
 - Adoption path: install command, `package.json`, `.claude-plugin`, and `pi.skills` metadata are configured.
-- GitHub metadata: description, topics, detected MIT license, issues enabled, wiki disabled; no canonical homepage yet.
+- GitHub metadata: description and topics are set, issues are enabled, wiki is disabled, and a local MIT `LICENSE` file is present; no canonical homepage yet.
 - Trust/maintenance: changelog, contributing guide, PR template, CI, and validation scripts exist; issue templates/support/security are still missing.
 
 ### Top strengths
-1. Correct skill packaging — evidence: `skills/good-repo/SKILL.md`, `references/`, `.claude-plugin/marketplace.json`.
+1. Correct skill packaging — evidence: `skills/good-repo/SKILL.md`, `skills/good-repo/references/`, `.claude-plugin/marketplace.json`.
 2. Behavior proof is credible — evidence: `evals/evals.json`, `evals/run_eval.py`, `docs/eval-results-2026-06-04.md`.
 3. Repo-only artifacts are separated from runtime files — evidence: `docs/`, `evals/`, `.github/` live outside `skills/good-repo/`.
 
