@@ -47,12 +47,9 @@
       "assertions": [
         {
           "name": "detect-library-no-package-release",
-          "type": "contains_any",
-          "values": [
-            "package",
-            "release",
-            "version"
-          ]
+          "type": "regex",
+          "pattern": "(?is)(package metadata|publishing path|release path|versioning|distribution)|(pyproject|package\\.json|Cargo\\.toml).{0,120}(missing|add|define)",
+          "description": "Identifies missing packaging/release surface from repo evidence."
         },
         {
           "name": "actionable",
@@ -93,11 +90,9 @@
       "assertions": [
         {
           "name": "detect-webapp-live-url-homepage-blank",
-          "type": "contains_any",
-          "values": [
-            "homepage",
-            "live URL"
-          ]
+          "type": "regex",
+          "pattern": "(?is)(GitHub|repository).{0,80}homepage|homepageUrl|set the homepage|metadata.{0,80}(demo|URL)",
+          "description": "Flags GitHub homepage metadata drift."
         },
         {
           "name": "actionable",
@@ -138,12 +133,9 @@
       "assertions": [
         {
           "name": "detect-skill-evals-inside-runtime",
-          "type": "contains_any",
-          "values": [
-            "evals",
-            "runtime",
-            "installable"
-          ]
+          "type": "regex",
+          "pattern": "(?is)(runtime bundle|package boundary|move evals|exclude evals|installed skill).{0,140}(eval|test|benchmark)|(eval|test|benchmark).{0,140}(runtime bundle|package boundary|installed skill)",
+          "description": "Flags eval artifacts leaking into the installable runtime surface."
         },
         {
           "name": "actionable",
@@ -184,12 +176,9 @@
       "assertions": [
         {
           "name": "detect-large-generated-assets",
-          "type": "contains_any",
-          "values": [
-            "generated",
-            "assets",
-            "bloat"
-          ]
+          "type": "regex",
+          "pattern": "(?is)(Git LFS|release artifact|repo size|binary blob|generated output|large file).{0,140}(move|exclude|release|bloat|artifact)",
+          "description": "Flags generated/binary asset bloat with a concrete storage remedy."
         },
         {
           "name": "actionable",
@@ -230,12 +219,9 @@
       "assertions": [
         {
           "name": "detect-template-no-proof",
-          "type": "contains_any",
-          "values": [
-            "proof",
-            "demo",
-            "examples"
-          ]
+          "type": "regex",
+          "pattern": "(?is)(runnable example|smoke test|proof that it works|terminal output|sample output|golden path)",
+          "description": "Requires executable proof, not template polish alone."
         },
         {
           "name": "actionable",
@@ -276,12 +262,9 @@
       "assertions": [
         {
           "name": "detect-mit-claim-no-license",
-          "type": "contains_any",
-          "values": [
-            "LICENSE",
-            "MIT",
-            "root"
-          ]
+          "type": "regex",
+          "pattern": "(?is)(missing root LICENSE|add (a )?LICENSE|license file|README.*MIT.*LICENSE|MIT.*LICENSE)",
+          "description": "Detects mismatch between claimed MIT license and absent root license file."
         },
         {
           "name": "actionable",
@@ -345,13 +328,13 @@
           "name": "lightweight-basics",
           "type": "contains_any",
           "values": [
-            "README",
             "status",
             "run command",
             "expected result",
             "smoke check",
             "license decision"
-          ]
+          ],
+          "description": "Prompt-echoed values removed by leakage cleanup."
         },
         {
           "name": "qualitative-review",
@@ -386,9 +369,9 @@
           "type": "contains_any",
           "values": [
             "third-party",
-            "docs",
             "not homepage"
-          ]
+          ],
+          "description": "Prompt-echoed values removed by leakage cleanup."
         },
         {
           "name": "qualitative-review",
@@ -420,10 +403,9 @@
           "name": "avoid-popular-poor-stars",
           "type": "contains_any",
           "values": [
-            "stars",
-            "quality",
             "caveat"
-          ]
+          ],
+          "description": "Prompt-echoed values removed by leakage cleanup."
         },
         {
           "name": "qualitative-review",
@@ -455,10 +437,9 @@
           "name": "avoid-private-internal",
           "type": "contains_any",
           "values": [
-            "internal",
-            "private",
             "not public"
-          ]
+          ],
+          "description": "Prompt-echoed values removed by leakage cleanup."
         },
         {
           "name": "qualitative-review",
@@ -490,10 +471,9 @@
           "name": "avoid-legal-confirmation",
           "type": "contains_any",
           "values": [
-            "confirm",
-            "legal",
             "approval"
-          ]
+          ],
+          "description": "Prompt-echoed values removed by leakage cleanup."
         },
         {
           "name": "qualitative-review",
@@ -734,8 +714,8 @@
           "name": "qualitative-review",
           "type": "judge",
           "rubric": [
-            "Classification",
-            "Smallest fix"
+            "Repository classification",
+            "Minimal next action"
           ]
         }
       ],
@@ -790,11 +770,9 @@
           "name": "classifies-spike",
           "type": "contains_any",
           "values": [
-            "spike",
-            "scratchpad",
-            "private",
             "experiment"
-          ]
+          ],
+          "description": "Prompt-echoed values removed by leakage cleanup."
         },
         {
           "name": "right-sized",
@@ -903,45 +881,126 @@
       "id": "no-repo-class",
       "removed_component": "repo-class classification",
       "expected_regressions": [
-        "Cargo-cults wrong checklist for experiments/forks/internal repos."
+        {
+          "summary": "Repo class/proportionality decisions regress on private/spike cases.",
+          "cases": [
+            "neg-internal-spike-no-public-launch-checklist",
+            "round3-fixture-private-spike"
+          ],
+          "assertions": [
+            "classifies-spike",
+            "right-sized",
+            "fixture-script-oracle"
+          ]
+        }
       ],
       "applies_to_cases": [
         "neg-tiny-personal-experiment"
-      ]
+      ],
+      "mechanism": "section",
+      "class": "instructions",
+      "target": {
+        "skill_root": "skills/good-repo/SKILL.md",
+        "heading": "### 0. Recon"
+      },
+      "notes": "Materialized removal: runner-visible skill tree is altered by the declared mechanism/target."
     },
     {
       "id": "no-good-readme-deferral",
       "removed_component": "good-readme deferral",
       "expected_regressions": [
-        "Over-handles README-only tasks."
+        {
+          "summary": "README-only or README-heavy work is no longer routed/proportioned correctly.",
+          "cases": [
+            "pos-skill-evals-inside-runtime",
+            "neg-tiny-personal-experiment"
+          ],
+          "assertions": [
+            "detect-skill-evals-inside-runtime",
+            "right-sized-experiment"
+          ]
+        }
       ],
-      "applies_to_cases": []
+      "applies_to_cases": [],
+      "mechanism": "section",
+      "class": "instructions",
+      "target": {
+        "skill_root": "skills/good-repo/SKILL.md",
+        "heading": "### 1. README handoff"
+      },
+      "notes": "Materialized removal: runner-visible skill tree is altered by the declared mechanism/target."
     },
     {
       "id": "no-homepage-drift",
       "removed_component": "homepage drift check",
       "expected_regressions": [
-        "Misses blank/misleading homepage metadata."
+        {
+          "summary": "Homepage metadata drift is missed.",
+          "cases": [
+            "pos-webapp-live-url-homepage-blank"
+          ],
+          "assertions": [
+            "detect-webapp-live-url-homepage-blank"
+          ]
+        }
       ],
-      "applies_to_cases": []
+      "applies_to_cases": [],
+      "notes": "Materialized removal: runner-visible skill tree is altered by the declared mechanism/target.",
+      "mechanism": "patch",
+      "class": "instructions",
+      "target": {
+        "skill_root": "skills/good-repo/SKILL.md",
+        "patch": "evals/ablations/no-homepage-drift.patch"
+      }
     },
     {
       "id": "no-popularity-caveats",
       "removed_component": "popularity caveats",
       "expected_regressions": [
-        "Treats stars as direct quality proof."
+        {
+          "summary": "Star/popularity cases override evidence-based quality judgment.",
+          "cases": [
+            "neg-popular-poor-stars"
+          ],
+          "assertions": [
+            "avoid-popular-poor-stars"
+          ]
+        }
       ],
-      "applies_to_cases": []
+      "applies_to_cases": [],
+      "notes": "Materialized removal: runner-visible skill tree is altered by the declared mechanism/target.",
+      "mechanism": "patch",
+      "class": "instructions",
+      "target": {
+        "skill_root": "skills/good-repo/SKILL.md",
+        "patch": "evals/ablations/no-popularity-caveats.patch"
+      }
     },
     {
       "id": "no-smallest-fix",
       "removed_component": "smallest concrete fix rule",
       "expected_regressions": [
-        "Recommendations become vague or overbroad."
+        {
+          "summary": "Repo recommendations stop naming concrete smallest fixes.",
+          "cases": [
+            "pos-library-no-package-release",
+            "pos-template-no-proof"
+          ],
+          "assertions": [
+            "actionable"
+          ]
+        }
       ],
       "applies_to_cases": [
         "neg-tiny-personal-experiment"
-      ]
+      ],
+      "mechanism": "section",
+      "class": "instructions",
+      "target": {
+        "skill_root": "skills/good-repo/SKILL.md",
+        "heading": "### 4. Produce prioritized fixes"
+      },
+      "notes": "Materialized removal: runner-visible skill tree is altered by the declared mechanism/target."
     }
   ]
 }

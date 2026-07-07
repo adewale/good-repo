@@ -1,0 +1,2 @@
+@@ -61,1 +61,0 @@
+-Always include the **homepage URL configuration check**: if the README, manifest, or docs expose a likely demo/docs/homepage URL, verify GitHub's repository `homepageUrl` is set to that URL. If it is empty or points elsewhere, flag it as a discoverability/configuration issue.

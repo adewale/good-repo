@@ -1,0 +1,4 @@
+@@ -44,1 +44,0 @@
+-A repo's quality is not measured by stars first. Stars are an outcome. Audit the features that make the right visitor understand, trust, try, use, and contribute:
+@@ -59,1 +59,0 @@
+-When the user asks about repo popularity, stars, forks, growth, or adoption impact, load [`references/popularity-signals.md`](references/popularity-signals.md). Treat stars/forks/watchers as noisy outcomes, not intrinsic quality. State correlations carefully and avoid claiming that one repo hygiene change will cause popularity.
