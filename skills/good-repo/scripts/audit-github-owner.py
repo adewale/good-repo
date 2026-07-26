@@ -15,17 +15,15 @@ import json
 import re
 import shutil
 import subprocess
-import sys
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any
 
-
 LABEL_WORDS = re.compile(
     r"\b(live|demo|website|homepage|play now|try it|launch|open app)\b",
-    re.I,
+    re.IGNORECASE,
 )
 IGNORE_HOMEPAGE_HOSTS = (
     "github.com",
@@ -152,9 +150,7 @@ def looks_like_project_url(url: str, owner: str, repo: str, *, from_package: boo
     owner_aliases = {owner_l, "oshineye" if owner_l == "adewale" else owner_l}
     if repo_l in haystack or repo_compact in re.sub(r"[-_.]", "", haystack):
         return True
-    if any(alias in haystack for alias in owner_aliases):
-        return True
-    return False
+    return bool(any(alias in haystack for alias in owner_aliases))
 
 
 def candidate_homepage(readme: str, package_home: str, owner: str, repo: str) -> str:
@@ -252,11 +248,11 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
         score += 8
         if len(readme) > 800:
             score += 4
-        if re.search(r"install|quick start|usage|play now|development|run", readme, re.I):
+        if re.search(r"install|quick start|usage|play now|development|run", readme, re.IGNORECASE):
             score += 4
         if meta.get("description"):
             score += 3
-        if re.search(r"limitation|non-goal|out of scope|requires|support", readme, re.I):
+        if re.search(r"limitation|non-goal|out of scope|requires|support", readme, re.IGNORECASE):
             score += 1
         strengths.append("README present")
     else:
@@ -271,11 +267,11 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
         strengths.append("live/demo/docs URL present")
     if any(x in root for x in ("docs", "examples", "site", "specs")):
         proof += 4
-    if re.search(r"\.png|\.jpg|\.gif|screenshot|demo|terminal output|example", readme, re.I):
+    if re.search(r"\.png|\.jpg|\.gif|screenshot|demo|terminal output|example", readme, re.IGNORECASE):
         proof += 3
-    if any(x in root for x in ("test", "tests", "evals")) or re.search(r"test|vitest|pytest|playwright|fast-check", readme, re.I):
+    if any(x in root for x in ("test", "tests", "evals")) or re.search(r"test|vitest|pytest|playwright|fast-check", readme, re.IGNORECASE):
         proof += 3
-    if re.search(r"changelog|release|version", readme, re.I) or "CHANGELOG.md" in root:
+    if re.search(r"changelog|release|version", readme, re.IGNORECASE) or "CHANGELOG.md" in root:
         proof += 1
     score += min(15, proof)
 
@@ -284,13 +280,13 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
     manifests = {"package.json", "pyproject.toml", "Cargo.toml", "go.mod", "requirements.txt", "wrangler.jsonc"}
     if root & manifests:
         adoption += 4
-    if re.search(r"install|npm install|pip install|cargo install|bun install|go install|clone", readme, re.I):
+    if re.search(r"install|npm install|pip install|cargo install|bun install|go install|clone", readme, re.IGNORECASE):
         adoption += 4
-    if re.search(r"requires|node|python|bun|rust|go|cloudflare|wrangler", readme, re.I):
+    if re.search(r"requires|node|python|bun|rust|go|cloudflare|wrangler", readme, re.IGNORECASE):
         adoption += 3
-    if re.search(r"npm test|bun test|pytest|cargo test|typecheck|lint|dev server|run", readme, re.I):
+    if re.search(r"npm test|bun test|pytest|cargo test|typecheck|lint|dev server|run", readme, re.IGNORECASE):
         adoption += 3
-    if re.search(r"expected|open http|play now|live", readme, re.I):
+    if re.search(r"expected|open http|play now|live", readme, re.IGNORECASE):
         adoption += 1
     score += min(15, adoption)
 
@@ -298,11 +294,11 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
     docs = 0
     if any(x in root for x in ("docs", "specs", "examples")):
         docs += 5
-    if re.search(r"architecture|further reading|docs|examples|api", readme, re.I):
+    if re.search(r"architecture|further reading|docs|examples|api", readme, re.IGNORECASE):
         docs += 4
     if any(x in root for x in ("src", "client", "worker", "shared", "skills")):
         docs += 3
-    if not re.search(r"TODO:|coming soon|describe your", readme, re.I):
+    if not re.search(r"TODO:|coming soon|describe your", readme, re.IGNORECASE):
         docs += 2
     if "CLAUDE.md" in root:
         docs += 1
@@ -339,7 +335,7 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
         trust += 4
     else:
         recs.append("Add a root LICENSE or explicitly mark the repo all-rights-reserved")
-    if "CHANGELOG.md" in root or re.search(r"changelog|release", readme, re.I):
+    if "CHANGELOG.md" in root or re.search(r"changelog|release", readme, re.IGNORECASE):
         trust += 3
     elif not is_fork and not is_old:
         recs.append("Add CHANGELOG.md or release notes for maintained/versioned work")
@@ -373,7 +369,7 @@ def audit_repo(owner: str, meta: dict[str, Any]) -> RepoAudit:
         strengths.append("CI/workflows present")
     elif not is_fork and not is_old:
         recs.append("Add lightweight CI/smoke validation")
-    if any(x in root for x in ("test", "tests", "evals")) or re.search(r"test|vitest|pytest|playwright", readme, re.I):
+    if any(x in root for x in ("test", "tests", "evals")) or re.search(r"test|vitest|pytest|playwright", readme, re.IGNORECASE):
         automation += 3
     if any(x in root for x in ("package-lock.json", "bun.lock", "uv.lock", "Cargo.lock")):
         automation += 1
@@ -428,7 +424,7 @@ def markdown(owner: str, audits: list[RepoAudit]) -> str:
     public_count = len(audits)
     forks = sum(a.fork for a in audits)
     homepage_issues = [a for a in audits if a.homepage_status.startswith("Missing") or a.homepage_status.startswith("Mismatch")]
-    no_topics = [a for a in audits if "Add 5–12 accurate GitHub topics" in a.top_recommendations]
+    [a for a in audits if "Add 5–12 accurate GitHub topics" in a.top_recommendations]
     lines.append(f"- Public repos assessed: **{public_count}**")
     lines.append(f"- Forks/reference repos: **{forks}**")
     lines.append(f"- Homepage URL issues detected: **{len(homepage_issues)}**")
