@@ -8,6 +8,7 @@ This strategy follows the useful parts of Anthropic's `skill-creator` workflow: 
 
 - Static validation runs via `npm run validate`.
 - `evals/run_eval.py validate` now checks behavior eval schema, trigger query schema, supported assertion types, unique IDs, file references, and `skill_name` alignment with `SKILL.md`.
+- `evals/shared-benchmark.json` is the harness manifest of record; CI validates and audits it against `skill-eval-harness==0.6.0` (see [Runner](#runner) for how it relates to the frozen `evals/evals.json`).
 - `evals/run_fixture_tests.py` now runs fixture-level mechanical tests for homepage drift, homepage false positives, missing license, bad skill layout, and skill name mismatch.
 - CI runs lightweight eval validation and fixture tests on every push/PR.
 - A first smoke eval was run on 2026-06-03; see `docs/eval-results-2026-06-03.md`.
@@ -135,7 +136,21 @@ Prefer assertions on decisions and evidence, not vocabulary alone.
 
 ## Runner
 
-The repo includes a small offline runner inspired by `skill-creator`:
+**The Skill Eval Harness manifest (`evals/shared-benchmark.json`) is the eval of record.**
+Add new behavior cases there and grade them with `skill-benchmark grade` /
+`skill-benchmark benchmark` (see `evals/shared-harness.md`); CI runs its model-free
+`validate --strict-leakage --check-ablations` and `audit-manifest --fail-on-blockers` gates
+against `skill-eval-harness==0.6.0`.
+
+`evals/evals.json` and the `grade` / `benchmark` subcommands below predate the harness and
+are kept, frozen, for one reason: they reproduce `docs/eval-results-2026-06-04.md`. Its 11
+cases were not ported because their keyword assertions reuse terms from their own prompts
+(the harness's `--strict-leakage` lint reports 37 leaked values across the ten cases that
+are not already in the manifest), so a port needs new assertions, not a format change. Do
+not add cases to `evals/evals.json`. `run_eval.py validate` stays in CI because it is the
+only schema check for `evals/evals.json` and `evals/trigger-queries.json`.
+
+The legacy runner is a small offline tool inspired by `skill-creator`:
 
 ```sh
 python3 evals/run_eval.py validate
