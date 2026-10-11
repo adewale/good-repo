@@ -133,7 +133,8 @@ good-repo owner-audit adewale
 | `skills/good-repo/scripts/audit-github-owner.py` | Owner/profile-wide GitHub audit script |
 | `evals/evals.json` | Expected skill behaviors and regression cases |
 | `evals/trigger-queries.json` | Trigger and near-miss cases for skill activation |
-| `evals/run_eval.py` | Skill-creator-inspired eval schema validator, output grader, and benchmark generator |
+| `evals/shared-benchmark.json` | Skill Eval Harness manifest of record (CI-gated with `skill-eval-harness==0.6.0`) |
+| `evals/run_eval.py` | Schema validator for `evals.json`/`trigger-queries.json`; its grader/benchmark only reproduce the frozen 2026-06-04 run |
 | `evals/run_fixture_tests.py` | Fixture-level tests for mechanical repo readiness checks |
 | `evals/fixtures/` | Tiny repos for homepage, license, and skill-layout regression checks |
 | `evals/README.md` | Eval strategy for improving the skill |

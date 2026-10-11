@@ -2,6 +2,13 @@
 
 All notable changes to `good-repo` will be documented here.
 
+## Unreleased
+
+- Trigger cases in `evals/shared-benchmark.json` declare `should_trigger`, and the judge-only holdout/holdback judges are `"gate": true`, so the manifest validates on Skill Eval Harness `main` as well as 0.6.0.
+- Pinned the harness to `skill-eval-harness==0.6.0` in `evals/shared-harness.md` and the manifest (the docs said `@v0.3.0` while the manifest said `>=0.4.0`), and CI now runs `validate --strict-leakage --check-ablations` and `audit-manifest --fail-on-blockers`.
+- Documented `evals/shared-benchmark.json` as the eval of record; `evals/evals.json` and `run_eval.py grade|benchmark` are frozen to reproduce the 2026-06-04 results.
+- Replaced the inline Markdown link check with a pinned, checksum-verified `lychee --offline --include-fragments` run, which skips link syntax inside code and checks `#anchor` targets.
+
 ## 0.1.1 — 2026-06-13
 
 - Tightened npm package `files` allowlist to include only runtime skill files, marketplace metadata, and public repo docs.

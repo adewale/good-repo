@@ -29,27 +29,20 @@ jobs:
       - name: Run fixture evals
         run: |
           python3 evals/run_fixture_tests.py
-      - name: Check internal Markdown links
+      - name: Check internal Markdown links and anchors (fence-aware)
+        env:
+          LYCHEE_VERSION: '0.24.2'
+          LYCHEE_SHA256: 1f4e0ef7f6554a6ed33dd7ac144fb2e1bbed98598e7af973042fc5cd43951c9a
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          bad = []
-          for p in Path('.').rglob('*.md'):
-              text = p.read_text()
-              for m in re.finditer(r'\[[^\]]+\]\(([^)]+)\)', text):
-                  link = m.group(1).split('#', 1)[0]
-                  if not link or re.match(r'^[a-z]+:', link) or link.startswith('mailto:'):
-                      continue
-                  target = (p.parent / link).resolve()
-                  if not target.exists():
-                      bad.append((str(p), m.group(1)))
-          if bad:
-              for path, link in bad:
-                  print(f'{path}: broken link {link}')
-              raise SystemExit(1)
-          print('Internal Markdown links OK')
-          PY
+          curl -sSfL -o "$RUNNER_TEMP/lychee.tgz" "https://github.com/lycheeverse/lychee/releases/download/lychee-v${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-gnu.tar.gz"
+          echo "${LYCHEE_SHA256}  $RUNNER_TEMP/lychee.tgz" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/lychee.tgz" -C "$RUNNER_TEMP"
+          "$RUNNER_TEMP/lychee-x86_64-unknown-linux-gnu/lychee" --offline --include-fragments --no-progress '**/*.md'
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Run model-free harness gate (pinned skill-eval-harness 0.6.0)
+        run: |
+          uvx --from skill-eval-harness==0.6.0 skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json
+          uvx --from skill-eval-harness==0.6.0 skill-benchmark audit-manifest --fail-on-blockers evals/shared-benchmark.json > /dev/null
       - name: Run repo readiness script
         run: |
           bash skills/good-repo/scripts/check-repo-readiness.sh
