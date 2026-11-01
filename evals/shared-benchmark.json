@@ -884,6 +884,68 @@
         "outcome",
         "style"
       ]
+    },
+    {
+      "id": "tune-ci-rollout-events",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Review a proposed validation workflow rollout to 20 repos. Each currently uses unrestricted push and pull_request for identical read-only lint steps. Policy requires PR checks, default-branch checks, and v* tag validation; feature pushes without a PR need no checks. Someone proposes push.branches: [main] and an extra cache around an action whose pinned implementation already caches that same tool directory. What should change before rollout?",
+      "expected_behavior": [
+        "Explain how one feature-branch update with an open PR starts both event runs, and identify the equivalent lint inputs before cutting coverage.",
+        "Identify that a branches-only push filter loses v* tag validation; propose retaining the required PR, main, and v* tag coverage.",
+        "Inspect the pinned action cache behavior before retaining an extra cache and trial the workflow in one representative repo before a broad rollout."
+      ],
+      "assertions": [
+        {
+          "name": "maintenance-evidence",
+          "type": "judge",
+          "gate": true,
+          "rubric": [
+            "Explain how one feature-branch update with an open PR starts both event runs, and identify the equivalent lint inputs before cutting coverage.",
+            "Identify that a branches-only push filter loses v* tag validation; propose retaining the required PR, main, and v* tag coverage.",
+            "Inspect the pinned action cache behavior before retaining an extra cache and trial the workflow in one representative repo before a broad rollout."
+          ]
+        }
+      ],
+      "tags": [
+        "maintenance",
+        "evidence-scope"
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
+    },
+    {
+      "id": "tune-ci-distinct-coverage",
+      "split": "tune",
+      "kind": "repo-audit",
+      "prompt": "Audit these two jobs for waste: the PR job validates untrusted contributions without credentials; the main-push job runs the same validation command with a protected integration service, then publishes the tested artifact. A maintainer suggests deleting the push workflow because the commands match. Required release checks depend on it.",
+      "expected_behavior": [
+        "Preserve the credentialed integration and publication coverage, explaining why equal commands do not prove equivalent jobs.",
+        "Recommend only a bounded change supported by evidence; do not remove the required release check or substitute syntax lint for runtime coverage."
+      ],
+      "assertions": [
+        {
+          "name": "maintenance-evidence",
+          "type": "judge",
+          "gate": true,
+          "rubric": [
+            "Preserve the credentialed integration and publication coverage, explaining why equal commands do not prove equivalent jobs.",
+            "Recommend only a bounded change supported by evidence; do not remove the required release check or substitute syntax lint for runtime coverage."
+          ]
+        }
+      ],
+      "tags": [
+        "maintenance",
+        "evidence-scope"
+      ],
+      "domain": "repository-quality",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     }
   ],
   "ablations": [
