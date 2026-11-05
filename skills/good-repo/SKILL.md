@@ -171,6 +171,20 @@ For a tiny personal experiment, prioritize only the lightweight basics that fit 
 
 Explicitly defer heavy process until the condition exists: external contributors, security-sensitive code/service, package consumers, active releases, or maintainer capacity. Do not recommend `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue forms, Dependabot, branch protection, release automation, or a large CI suite just to improve a score. If those surfaces are not applicable, mark them N/A or low-priority with the condition that would make them relevant.
 
+### 0b. Automation cost before rollout
+
+Before adding or copying CI, map the events that run each check: feature-branch
+push, pull-request update, default-branch push, tag/release, and schedule. A push
+to a branch with an open PR can start two runs. Compare their inputs, permissions,
+and required-check roles before calling them duplicates. Preserve default-branch
+and release coverage; branch filters must not accidentally remove tag runs.
+
+Inspect the pinned action's defaults before adding cache, install, or tool-version
+steps. Keep extra machinery only for a demonstrated gap. Trial a shared workflow
+in one representative repo before rolling it out. See
+[`references/automation-cost.md`](references/automation-cost.md) for a worked example
+and the boundaries that make a cut safe.
+
 ### 1. README handoff
 
 If README work is a major part of the task:
